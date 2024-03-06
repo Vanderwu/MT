@@ -1,0 +1,87 @@
+<view class="container">
+  <view class="echart_header">
+    <view class="title">我的工单分布</view>
+    <view class="select_date">
+      <view class="label">展示 :</view>
+      <t-cell class="selector" arrow hover note="{{city2Text}}" bind:click="onWithoutTitlePicker" />
+      <t-picker visible="{{city2Visible}}" value="{{city2Value}}" data-key="city2" title="{{city2Title}}" cancelBtn="取消" confirmBtn="确认" bindchange="onPickerChange" bindpick="onColumnChange" bindcancel="onPickerCancel">
+        <t-picker-item options="{{citys}}"></t-picker-item>
+      </t-picker>
+    </view>
+  </view>
+  <view class="echart_box">
+    <view class="echart_left">
+      <ec-canvas id="mychart-dom-bar" canvas-id="mychart-bar" ec="{{ ec }}"></ec-canvas>
+    </view>
+    <view class="echart_right">
+      <view class="detail">
+        <text class="detail_text">查看详情</text>
+      </view>
+      <view class="oval">
+        <view class="oval_echart" style="background-image: url('../../../assets/oval.png');"></view>
+      </view>
+    </view>
+    <view class="gradient_box"></view>
+  </view>
+  <view class="list_title_box">
+    <view class="list_title">待办事项</view>
+    <view class="list_logo" style="background-image: url('../../../assets/mt_logo.png');"></view>
+  </view>
+  <view class="list">
+    <view class="list_item">
+      <view class="item_left">
+        <view class="item_left_icon" style="background-image: url('../../../assets/blackpointer.png');"></view>
+      </view>
+      <view class="item_center">
+        <view class="item_title">李女士派的工单</view>
+        <view class="item_date">截止日期：<view class="text-default">2024年1月28日</view>
+        </view>
+        <view class="item_action">
+          <button class="btn btn_blue">安装工单</button>
+          <button class="btn btn_red">紧急</button>
+          <button class="btn btn_orange">待开始</button>
+        </view>
+      </view>
+      <view class="item_right">
+        <view class="item_right_icon" style="background-image: url('../../../assets/path.png');"></view>
+      </view>
+    </view>
+    <view class="list_item">
+      <view class="item_left">
+        <view class="item_left_icon" style="background-image: url('../../../assets/blackpointer.png');"></view>
+      </view>
+      <view class="item_center">
+        <view class="item_title">李女士派的工单</view>
+        <view class="item_date">截止日期：<view class="text-default">2024年1月28日</view>
+        </view>
+        <view class="item_action">
+          <button class="btn btn_blue">安装工单</button>
+          <button class="btn btn_red">紧急</button>
+          <button class="btn btn_orange">待开始</button>
+        </view>
+      </view>
+      <view class="item_right">
+        <view class="item_right_icon" style="background-image: url('../../../assets/path.png');"></view>
+      </view>
+    </view>
+    <view class="list_item">
+      <view class="item_left">
+        <view class="item_left_icon" style="background-image: url('../../../assets/blackpointer.png');"></view>
+      </view>
+      <view class="item_center">
+        <view class="item_title">李女士派的工单</view>
+        <view class="item_date">截止日期：<view class="text-default">2024年1月28日</view>
+        </view>
+        <view class="item_action">
+          <button class="btn btn_blue">安装工单</button>
+          <button class="btn btn_red">紧急</button>
+          <button class="btn btn_orange">待开始</button>
+        </view>
+      </view>
+      <view class="item_right">
+        <view class="item_right_icon" style="background-image: url('../../../assets/path.png');"></view>
+      </view>
+    </view>
+  </view>
+
+</view>

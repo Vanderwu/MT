@@ -1,0 +1,30 @@
+<view class="container">
+  <view class="header" style="background-image: url('../../../assets/mask-group.png');">
+			<view class="userinfo" style="background-image: url('../../../assets/userinfo.png');">
+			</view>
+	</view>
+  <view class="post_info">
+			<view class="user_name">
+				吴工
+			</view>
+			<view class="user_post">
+				职位：鸭王
+			</view>
+	</view>
+  <view class="list_item">
+			<view class="icon_1" style="background-image: url('../../../assets/ic-account.png');"></view>
+			<view class="list_title">我的账户</view>
+			<view class="icon_2" style="background-image: url('../../../assets/ic-into.png');"></view>
+		</view>
+		<view class="list_item">
+      <view class="icon_1" style="background-image: url('../../../assets/ic-account.png');"></view>
+			<view class="list_title">我的认证</view>
+      <view class="icon_2" style="background-image: url('../../../assets/ic-into.png');"></view>
+		</view>
+		<view class="list_item">
+      <view class="icon_1" style="background-image: url('../../../assets/ic-order.png');"></view>
+			<view class="list_title">我的派工单</view>
+      <view class="icon_2" style="background-image: url('../../../assets/ic-into.png');"></view>
+		</view>
+    <view class="mt_logo" style="background-image: url('../../../assets/mt_logo.png');"></view>
+</view>
