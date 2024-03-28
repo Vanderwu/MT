@@ -1,6 +1,6 @@
 Page({
     data: {
-      isChecked: false,
+      checkboxValue: false,
       btnColor: '#bbd3fb' // 初始按钮颜色
     },
     onLoad(options) {
@@ -9,7 +9,7 @@ Page({
     loginBtn(){
 
     },
-    checkboxChange: function(e) {
+    checkboxBtn: function(e) {
       this.setData({
         isChecked: e.detail.value.length > 0,
         btnColor: e.detail.value.length > 0 ? '#007bff' : '#bbd3fb' // 改变按钮颜色
@@ -17,7 +17,7 @@ Page({
     },
   
     authorize: function() {
-      if (this.data.isChecked) {
+      if (this.data.checkboxValue) {
         // 执行授权逻辑
         // console.log('已经勾选，执行授权操作');
         wx.switchTab({
@@ -32,6 +32,15 @@ Page({
         });
         // console.log('请先勾选同意条例');
       }
-    }
+    },
+    checkboxBtn(e)
+    {
+      let lastValue = this.data.checkboxValue;
+      this.setData({
+        checkboxValue: !lastValue,
+        btnColor: !lastValue ? '#007bff' : '#bbd3fb' // 改变按钮颜色
+      
+      });
+    },
 
 });

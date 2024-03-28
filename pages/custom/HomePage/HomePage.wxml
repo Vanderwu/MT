@@ -1,4 +1,60 @@
 <!-- 首页 -->
 <view class="container">
+  <!-- <view class="header" style="background-image: url({{mask_group}});"> -->
+  <view class="header">
+    <!-- <image class="header" src="{{mask_group}}" mode="" /> -->
+    <image class="newHeader" src="{{mask_group}}" mode=""/>
+    <view class="con_header">
+      <view class="header_title">售后服务中心</view>
+      <view class="header_subtitle">为您提供方便快捷的一站式服务</view>
+      <image src="../../../assets/mt_logo.png" style="width: 45px;height: 22px;z-index: 5;" mode="" />
+    </view>
+  </view>
+  <view class="con_menu">
+    <view class="c_menu">
+      <view class="m_title">
+        服务功能
+      </view>
+      <view class="m_option">
+        <view bindtap="option_1" class="option_1">
+          <view class="o_top_1">
+            <view class="t_leff_1">
+              <image src="../../../assets/t_img_1.png" mode="aspectFill" />
+            </view>
+            <view class="t_right_1">我的订单</view>
+          </view>
+          <view class="o_bottom_1">查看订单进度</view>
+        </view>
 
+        <view bindtap="option_2" class="option_2">
+          <view class="o_top_2">
+            <view class="t_leff_2">
+              <image src="../../../assets/t_img_2.png" mode="aspectFill" />
+            </view>
+            <view class="t_right_2">提报问题</view>
+          </view>
+          <view class="o_bottom_2">提交售后问题</view>
+        </view>
+
+        <view bindtap="option_3" class="option_3">
+          <view class="o_top_3">
+            <view class="t_leff_3">
+              <image src="../../../assets/t_img_3.png" mode="aspectFill" />
+            </view>
+            <view class="t_right_3">我的反馈</view>
+          </view>
+          <view class="o_bottom_3">咨询、投诉单查询</view>
+        </view>
+        <view bindtap="option_4" class="option_4">
+          <view class="o_top_4">
+            <view class="t_leff_4">
+              <image src="../../../assets/t_img_4.png" mode="aspectFill" />
+            </view>
+            <view class="t_right_4">我的评价</view>
+          </view>
+          <view class="o_bottom_4">管理我的服务评价</view>
+        </view>
+      </view>
+    </view>
+  </view>
 </view>

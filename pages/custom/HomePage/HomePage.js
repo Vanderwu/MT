@@ -5,7 +5,7 @@ Page({
      * 页面的初始数据
      */
     data: {
-
+      mask_group :'/assets/mask-group.png'
     },
 
     /**
@@ -62,5 +62,30 @@ Page({
      */
     onShareAppMessage() {
 
+    },
+
+    option_1:function(){
+      // 我的订单
+      wx.switchTab({
+        url: '/pages/custom/mine/mine'
+      });
+    },
+    option_2:function(){
+      // 问题反馈
+      wx.navigateTo({
+        url: '/pages/custom/feedback/feedback'
+      });
+    },
+    option_3:function(){
+      // 我的反馈
+      wx.navigateTo({
+        url: '/pages/custom/feedback_details/feedback_details'
+      });
+    },
+    option_4:function(){
+      // 我的评价
+      wx.navigateTo({
+        url: '/pages/custom/evaluate/evaluate'
+      });
     }
 })

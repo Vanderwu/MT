@@ -1,25 +1,25 @@
-// pages/custom/joborder/joborder.js
+// pages/custom/joborder_details/joborder_details.js
 Page({
 
     /**
      * 页面的初始数据
      */
     data: {
-     
-    },
 
+    },
 
     /**
      * 生命周期函数--监听页面加载
      */
-    onLoad() {
+    onLoad(options) {
+
     },
 
     /**
      * 生命周期函数--监听页面初次渲染完成
      */
     onReady() {
-      
+
     },
 
     /**
@@ -62,6 +62,5 @@ Page({
      */
     onShareAppMessage() {
 
-    },
-
+    }
 })

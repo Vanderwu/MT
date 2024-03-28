@@ -1,6 +1,7 @@
 {
   "usingComponents": {
-    "t-button": "tdesign-miniprogram/button/button"
+    "t-button": "tdesign-miniprogram/button/button",
+    "t-checkbox": "tdesign-miniprogram/checkbox/checkbox"
   },
   "navigationBarTitleText": "梦天售后服务中心",
   "navigationBarBackgroundColor": "#f6f6f6",

@@ -55,7 +55,12 @@
         "pages/result/result",
         "pages/result/result-page",
         "pages/link/link",
-        "pages/custom/HomePage/HomePage"
+        "pages/custom/HomePage/HomePage",
+        "pages/custom/mine_details/mine_details",
+        "pages/custom/feedback/feedback",
+        "pages/custom/feedback_details/feedback_details",
+        "pages/custom/evaluate/evaluate",
+        "pages/custom/feedback_content/feedback_content"
     ],
     "subpackages": [
         {
@@ -145,7 +150,7 @@
     },
     "sitemapLocation": "sitemap.json",
     "tabBar": {
-        "color": "rgb(220, 220, 220)",
+        "color": "#000000",
         "selectedColor": "#1E90FF",
         "font-size": "100px",
         "list": [
