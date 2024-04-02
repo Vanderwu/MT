@@ -10,12 +10,13 @@
               <image class="list_title_left_icon" src="../../../assets/commodity_img.png" mode="" />
             </view>
             <view class="list_title_right">
-              <view class="list_title_right_number">订单编号:{{item["number"]}}</view>
-              <view class="list_title_right_dealer">经销商:{{item["dealer"]}}</view>
+              <view class="list_title_right_number">订单编号:{{item["po"]}}</view>
+              <view class="list_title_right_dealer">经销商:{{item["distributorName__c"]}}</view>
               <view class="list_title_right_type">
                 <view class="type_1">订单状态：</view>
                 <view class="display_1">
-                  <text>{{item["install_type"]}}</text>
+                  <text>待交付</text>
+                  <!-- <text>{{item["distributorName__c"]}}</text> -->
                 </view>
               </view>
               <!-- <view class="list_title_right_delivery">预计配送时间:{{item["delivery_date"]}}</view>
@@ -26,19 +27,20 @@
       </t-tab-panel>
 
       <t-tab-panel label="交付中" value="1">
-        <view wx:for="{{searchListObj['inProgress']}}" wx:for-index="index" wx:for-item="item" wx:key="index" class="list">
+        <view wx:for="{{searchListObj['inProgress']}}" wx:for-index="index" wx:for-item="item" data-item="{{item}}" wx:key="index" class="list" bindtap="onClickListItem">
           <view class="list_title">
             <view class="list_title_left">
               <!-- <view class="list_title_left_icon" style="background-image: url('../../../assets/commodity_img.png');"></view> -->
               <image class="list_title_left_icon" src="../../../assets/commodity_img.png" mode="" />
             </view>
             <view class="list_title_right">
-              <view class="list_title_right_number">订单编号:{{item["number"]}}</view>
-              <view class="list_title_right_dealer">经销商:{{item["dealer"]}}</view>
+              <view class="list_title_right_number">订单编号:{{item["po"]}}</view>
+              <view class="list_title_right_dealer">经销商:{{item["distributorName__c"]}}</view>
               <view class="list_title_right_type">
                 <view class="type_2">订单状态：</view>
                 <view class="display_2">
-                  <text>{{item["install_type"]}}</text>
+                  <text>交付中</text>
+                  <!-- <text>{{item["distributorName__c"]}}</text> -->
                 </view>
               </view>
               <!-- <view class="list_title_right_delivery">预计配送时间:{{item["delivery_date"]}}</view>
@@ -49,19 +51,20 @@
       </t-tab-panel>
 
       <t-tab-panel label="已完成" value="2">
-        <view wx:for="{{searchListObj['done']}}" wx:for-index="index" wx:for-item="item" wx:key="index" class="list">
+        <view wx:for="{{searchListObj['done']}}" wx:for-index="index" wx:for-item="item" data-item="{{item}}" wx:key="index" class="list" bindtap="onClickListItem">
           <view class="list_title">
             <view class="list_title_left">
               <!-- <view class="list_title_left_icon" style="background-image: url('../../../assets/commodity_img.png');"></view> -->
               <image class="list_title_left_icon" src="../../../assets/commodity_img.png" mode="" />
             </view>
             <view class="list_title_right">
-              <view class="list_title_right_number">订单编号:{{item["number"]}}</view>
-              <view class="list_title_right_dealer">经销商:{{item["dealer"]}}</view>
+              <view class="list_title_right_number">订单编号:{{item["po"]}}</view>
+              <view class="list_title_right_dealer">经销商:{{item["distributorName__c"]}}</view>
               <view class="list_title_right_type">
                 <view class="type_3">订单状态：</view>
                 <view class="display_3">
-                  <text>{{item["install_type"]}}</text>
+                  <text>已完成</text>
+                  <!-- <text>{{item["distributorName__c"]}}</text> -->
                 </view>
               </view>
               <!-- <view class="list_title_right_delivery">预计配送时间:{{item["delivery_date"]}}</view>

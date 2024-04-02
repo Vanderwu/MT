@@ -4,22 +4,22 @@
     <view>请在详细填写问题描述、并尽可能上传故障照片和视频,方便工程师远程诊断并快速解决故障。</view>
   </view>
   <view class="content">
-    <t-input class="required" label="姓 名" placeholder="请输入姓名" disabled value="{{name}}"></t-input>
-    <t-input class="required" label="联系方式" placeholder="联系方式" disabled value="{{phone}}"></t-input>
-    <t-input class="required" label="省 份" placeholder="请输入省份" disabled value="{{province}}"></t-input>
-    <t-input class="required" label="市 区" placeholder="请输入市区" disabled value="{{City}}"></t-input>
-    <t-input class="required" label="详细地址" placeholder="请输入详情地址" disabled value="{{address}}"></t-input>
+    <t-input class="required" label="姓名" placeholder="请输入姓名" disabled value="{{dataList.caseAccountId}}"></t-input>
+    <t-input class="required" label="联系方式" placeholder="请输入联系方式" disabled value="{{dataList.phone}}"></t-input>
+    <t-input class="required" label="省市" placeholder="请输入省市" disabled value="{{province}}"></t-input>
+    <t-input class="required" label="区县" placeholder="请输入区县" disabled value="{{City}}"></t-input>
+    <t-input class="required" label="详细地址" placeholder="请输入详情地址" disabled value="{{dataList.customerAddress__c}}"></t-input>
     <view class="con_category">
       <view class="category">问题类别</view>
-      <t-radio-group class="radio" defaultValue="radio1" disabled="{{false}}" disabled>
-        <t-radio class="radio_" value="radio1" label="售前咨询" />
-        <t-radio class="radio_" value="radio2" label="售后报修" />
-        <t-radio class="radio_" value="radio3" label="投诉建议" />
+      <t-radio-group class="radio" value="{{defaultValue}}" disabled="{{false}}" disabled>
+        <t-radio class="radio_" value="0" label="售前咨询" />
+        <t-radio class="radio_" value="1" label="售后报修" />
+        <t-radio class="radio_" value="2" label="投诉建议" />
       </t-radio-group>
     </view>
     <view class="describe">问题描述</view>
     <view class="con_textarea">
-      <t-textarea t-class="external-class" placeholder="请输入问题描述" maxlength="200" disableDefaultPadding="{{true}}" indicator disabled />
+      <t-textarea t-class="external-class" placeholder="请输入问题描述" maxlength="200" disableDefaultPadding="{{true}}" value = "{{dataList.problemDescription}}" indicator disabled />
     </view>
     <view class="con_billcode">
       <text class="billcode">选择订单</text>

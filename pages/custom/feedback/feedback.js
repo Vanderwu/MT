@@ -1,4 +1,5 @@
 // pages/custom/feedback/feedback.js
+const app = getApp()
 import Message from 'tdesign-miniprogram/message/index';
 Page({
 
@@ -11,9 +12,12 @@ Page({
       inputPhone:'',
       inputProvince:'',
       inputCounty:'',
-      inputaddress:'',
+      inputAddress:'',
       inputTextarea:'',
       visible: false,
+      defaultValue:'0',
+      selectedValue:'',
+      phoneError: false,
       gridConfig: {
         column: 5,
         width: 80,
@@ -29,6 +33,12 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad(options) {
+      let po = options.po;
+      if(po){
+        this.setData({
+          value:po
+        })
+      }
 
     },
 
@@ -83,64 +93,115 @@ Page({
     inputName(e){
       this.setData({
         inputName:e.detail.value,
-        nameBorderStyle: e.detail.value ? "": "border-bottom: 0.5px solid rgb(235, 115, 115);"
+        inputNameBorderStyle: e.detail.value ? "": "border-bottom: 0.5px solid rgb(235, 115, 115);"
       });
       console.log(e.detail.value)
     },
     inputPhone(e){
       //联系方式
-      this.setData({
-        inputPhone:e.detail.value,
-        phoneBorderStyle: e.detail.value ? "": "border-bottom: 0.5px solid rgb(235, 115, 115);"
-      });
+      const { phoneError } = this.data;
+      const isPhoneNumber = /^[1][3,4,5,7,8,9][0-9]{9}$/.test(e.detail.value);
+      if (phoneError === isPhoneNumber){
+        this.setData({
+          inputPhone:e.detail.value,
+          phoneError: !isPhoneNumber,
+          inputPhoneBorderStyle: e.detail.value ? "": "border-bottom: 0.5px solid rgb(235, 115, 115);"
+        });
+      }
     },
     inputProvince(e){
       //省份
       this.setData({
         inputProvince:e.detail.value,
-        provinceBorderStyle: e.detail.value ? "": "border-bottom: 0.5px solid rgb(235, 115, 115);"
+        inputProvinceBorderStyle: e.detail.value ? "": "border-bottom: 0.5px solid rgb(235, 115, 115);"
       });
     },
     inputCounty(e){
       //区县
       this.setData({
         inputCounty:e.detail.value,
-        countyBorderStyle: e.detail.value ? "": "border-bottom: 0.5px solid rgb(235, 115, 115);"
+        inputCountyBorderStyle: e.detail.value ? "": "border-bottom: 0.5px solid rgb(235, 115, 115);"
       });
     },
-    inputaddress(e){
+    inputAddress(e){
       //详细地址
       this.setData({
         inputAddress:e.detail.value,
-        addressBorderStyle: e.detail.value ? "": "border-bottom: 0.5px solid rgb(235, 115, 115);"
+        inputAddressBorderStyle: e.detail.value ? "": "border-bottom: 0.5px solid rgb(235, 115, 115);"
       });
     },
     inputTextarea(e){
       this.setData({
         inputTextarea:e.detail.value,
-        textareaBorderStyle: e.detail.value ? "": "border: 0.5px solid rgb(235, 115, 115);"
+        inputTextareaBorderStyle: e.detail.value ? "": "border: 0.5px solid rgb(235, 115, 115);"
+      });
+    },
+    radioChange(e){
+      this.setData({
+        selectedValue:e.detail.value
       });
     },
     handleTap(){
-      if(!this.data.inputName){
-        console.log(this.data.inputName)
-        this.setData({
-          'nameBorderStyle': "border-bottom: 0.5px solid rgb(235, 115, 115);"
-        });
-      }else{
-        this.setData({
-          'nameBorderStyle': ""
-        });
-        this.showSuccessMessage()
-        this.resetting()
+      let hasEmptyField = false; // 用于记录是否存在未填写的字段
+      const inputFields = ['inputName', 'inputPhone', 'inputProvince', 'inputCounty', 'inputAddress', 'inputTextarea'];
+      
+      inputFields.forEach(field => {
+        const borderStyle = field === 'inputTextarea' ? "border: 0.5px solid rgb(235, 115, 115);" : "border-bottom: 0.5px solid rgb(235, 115, 115);";
+        
+        if (!this.data[field]) {
+          this.setData({
+            [`${field}BorderStyle`]: borderStyle,
+          });
+          hasEmptyField = true; // 存在未填写字段，将标记设为 true
+        } else {
+          this.setData({
+            [`${field}BorderStyle`]: "",
+          });
+        }
+      });
+    
+      if (!hasEmptyField) {
+        this.showSuccessMessage();
+        this.resetting();
+      } else {
+        console.log("存在未填写的字段");
       }
-    },
+    },    
     showSuccessMessage() {
-      Message.success({
-        context: this,
-        offset: [20, 32],
-        duration: 5000,
-        content: '问题反馈提交成功',
+      console.log("9999",this.data.selectedValue)
+      wx.request({
+        url: app.loginHost.apiUrl+'api/service-case',
+        data: 
+        {
+          "phone": this.data.inputPhone,
+          "questionType": this.data.selectedValue,
+          "problemDescription": this.data.inputTextarea,
+          "name": this.data.inputName,
+          "caseNo": this.data.value,
+          "caseAccountId": this.data.inputName,
+          "caseStatus": "2",
+          "picture": "",
+          "video": "",
+          "lockStatus": "1"
+        },
+        method: 'POST',
+        success: (res) => {
+          console.log(res)
+          Message.success({
+            context: this,
+            offset: [20, 32],
+            duration: 5000,
+            content: '问题反馈提交成功',
+          });
+        },
+        fail: (err) => {
+          console.error('请求后端接口失败', err);
+          wx.showToast({
+            title: '请求失败，请稍后重试',
+            icon: 'none',
+            duration: 2000
+          });
+        },
       });
     },
     handleClick() {
@@ -150,24 +211,6 @@ Page({
       this.setData({
         visible: e.detail.visible,
       });
-    },
-    chooseImage: function() {
-      wx.chooseImage({
-        count: 1, // 最多可以选择的图片张数
-        sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
-        sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-        success: function (res) {
-          // 选择图片成功后的回调函数
-          var tempFilePaths = res.tempFilePaths;
-          wx.showToast({
-            title: '上传成功',
-            icon: 'success',
-            duration: 2000
-          });
-          // 将选择的图片上传至服务器或进行其他操作
-          console.log(tempFilePaths);
-        }
-      })
     },
     handleSuccess(e) {
       const { files } = e.detail;
@@ -204,7 +247,7 @@ Page({
         inputPhone:'',
         inputProvince:'',
         inputCounty:'',
-        inputaddress:'',
+        inputAddress:'',
         inputTextarea:'',
       });
     }

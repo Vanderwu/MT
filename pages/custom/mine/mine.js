@@ -1,4 +1,4 @@
-// pages/custom/joborder/joborder.js
+const app = getApp()
 Page({
 
   /**
@@ -41,6 +41,7 @@ Page({
    */
   onShow() {
     this.searchList();
+    this.tabIndex = 0;
   },
 
   /**
@@ -92,44 +93,63 @@ Page({
   },
 
   searchList(event){
-    setTimeout(() =>{
-      let data = {toBegin:[],inProgress:[],done:[]};
-      let index = 0;
-      if(event)
+    wx.request({
+      url: app.loginHost.apiUrl+'api/order/list',
+      data: 
       {
-        let keyword = event.detail.value;
-        data["toBegin"] = this.data.srcListObj["toBegin"].filter(val => val["title"].toLocaleLowerCase().indexOf(keyword.toLocaleLowerCase()) != -1 || val["address"].toLocaleLowerCase().indexOf(keyword.toLocaleLowerCase()) != -1);
-        data["inProgress"] = this.data.srcListObj["inProgress"].filter(val => val["title"].toLocaleLowerCase().indexOf(keyword.toLocaleLowerCase()) != -1 || val["address"].toLocaleLowerCase().indexOf(keyword.toLocaleLowerCase()) != -1)
-        data["done"] = this.data.srcListObj["done"].filter(val => val["title"].toLocaleLowerCase().indexOf(keyword.toLocaleLowerCase()) != -1 || val["address"].toLocaleLowerCase().indexOf(keyword.toLocaleLowerCase()) != -1)
-        if(data["toBegin"].length>0){
-          index = 0;
+        "deliveryDate": "",
+        "status__c": "",
+        "orderType__c": "",
+        "transactionDate": "",
+        "po": "",
+        "accountName": "",
+        "accountPhone": ""
+      },
+      method: 'POST',
+      success: (res) => {
+        let dataSource = res.data.data;
+        // console.log(dataSource)
+        let index = 0;
+        if(dataSource.length > 0){
+          setTimeout(() =>{
+            let data = {toBegin:[],inProgress:[],done:[]};
+            data["toBegin"] = dataSource.filter(val => val["status__c"] === "0");
+            data["inProgress"] = dataSource.filter(val => val["status__c"] === "1");
+            data["done"] = dataSource.filter(val => val["status__c"] === "2");
+            if(data["toBegin"].length>0){
+              index = 0;
+            }
+            if(data["inProgress"].length>0){
+              index = 1;
+            }
+            if(data["done"].length>0){
+              index = 2;
+            }
+            // data = this.data.srcListObj;
+            this.setData({
+              searchListObj: data, 
+              // tabIndex: index
+            });
+            // console.log(this.data.dataList)
+          },66)
         }
-        if(data["inProgress"].length>0){
-          index = 1;
-        }
-        if(data["done"].length>0){
-          index = 2;
-        }
-      }
-      else
-      {
-        data = this.data.srcListObj;
-      }
-      this.setData({
-        searchListObj: data,
-        tabIndex: index
-      });
-    },66)
-    
-
+      },
+      fail: (err) => {
+        console.error('请求后端接口失败', err);
+        wx.showToast({
+          title: '请求失败，请稍后重试',
+          icon: 'none',
+          duration: 2000
+        });
+      },
+    });
   },
-
   onClickListItem(event){
     let item = event.currentTarget.dataset.item;
+    console.log("11111",item.po)
     // 在当前 TabBar 页面的事件处理函数中进行跳转操作
     wx.navigateTo({
-      url: '/pages/custom/mine_details/mine_details'  // 跳转到非 TabBar 页面的路径
+      url: '/pages/custom/mine_details/mine_details?po='+item.po  // 跳转到非 TabBar 页面的路径
     });      
   },
-
 })

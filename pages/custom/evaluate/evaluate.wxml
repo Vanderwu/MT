@@ -10,7 +10,7 @@
               <image class="list_title_left_icon" src="../../../assets/Comments.png" mode="" />
             </view>
             <view class="list_title_right">
-              <view class="list_title_right_number">订单编号:{{item["number"]}}</view>
+              <view class="list_title_right_number">评价编号:{{item["number"]}}</view>
               <view class="list_title_right_dealer">评价对象:{{item["dealer"]}}</view>
               <view class="list_title_right_type">
                 <view class="type_1">问题状态：</view>
@@ -33,7 +33,7 @@
               <image class="list_title_left_icon" src="../../../assets/Comments.png" mode="" />
             </view>
             <view class="list_title_right">
-              <view class="list_title_right_number">订单编号:{{item["number"]}}</view>
+              <view class="list_title_right_number">评价编号:{{item["number"]}}</view>
               <view class="list_title_right_dealer">评价对象:{{item["dealer"]}}</view>
               <view class="list_title_right_type">
                 <view class="type_3">问题状态：</view>

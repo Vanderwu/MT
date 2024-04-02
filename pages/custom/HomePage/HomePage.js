@@ -66,7 +66,7 @@ Page({
 
     option_1:function(){
       // 我的订单
-      wx.switchTab({
+      wx.navigateTo({
         url: '/pages/custom/mine/mine'
       });
     },

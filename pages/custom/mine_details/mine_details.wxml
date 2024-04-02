@@ -5,8 +5,9 @@
         <image src="../../../assets/install-fill.png" mode="aspectFill" />
       </view>
       <view class="o_con_right_number">
-        <view class="o_con_right_title">李女士的订单</view>
-        <view class="o_con_right_id">订单编号:SO20240221-0002</view>
+        <view class="o_con_right_title">{{dataList.storeName__c}}的订单</view>
+        
+        <view class="o_con_right_id">订单编号:{{dataList.po}}</view>
       </view>
     </view>
     <view class="header_step">
@@ -42,9 +43,9 @@
   <view class="m_contact">
     <view class="m_contact_view">
       <view class="m_contact_img">
-        <image src="../../../assets/main_icon.jpg" mode="aspectFill" />
+        <image src="" mode="aspectFill" />
       </view>
-      <view class="m_contact_name">上海市梦天A级经销商</view>
+      <view class="m_contact_name">{{dataList.distributorName__c}}</view>
       <view class="m_contact_evaluate">
         <text>5.0</text>
         <image src="../../../assets/star.png" mode="" />

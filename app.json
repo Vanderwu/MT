@@ -60,7 +60,8 @@
         "pages/custom/feedback/feedback",
         "pages/custom/feedback_details/feedback_details",
         "pages/custom/evaluate/evaluate",
-        "pages/custom/feedback_content/feedback_content"
+        "pages/custom/feedback_content/feedback_content",
+        "pages/custom/person/person"
     ],
     "subpackages": [
         {
@@ -162,7 +163,7 @@
             },
             {
                 "text": "我的",
-                "pagePath": "pages/custom/mine/mine",
+                "pagePath": "pages/custom/person/person",
                 "iconPath": "./assets/my.png",
                 "selectedIconPath": "./assets/my_xt.png"
             }

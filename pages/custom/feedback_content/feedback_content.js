@@ -1,4 +1,4 @@
-// pages/custom/feedback/feedback.js
+const app = getApp()
 import Message from 'tdesign-miniprogram/message/index';
 Page({
 
@@ -13,6 +13,8 @@ Page({
       province:"上海",
       City:"上海市",
       address:"上海市嘉定区宝翔路宏利瑞园5栋501",
+      dataList:{},
+      defaultValue:"0",
       gridConfig: {
         column: 5,
         width: 80,
@@ -44,8 +46,36 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad(options) {
-
+      let id = options.id
+      if(id){
+        wx.request({
+          url: app.loginHost.apiUrl+'api/service-case?id='+encodeURIComponent(id),
+          method: 'GET',
+          success: (res) => {
+            let dataSource = res.data.data;
+            this.setData({
+              dataList:dataSource,
+              defaultValue:dataSource.questionType+""
+            });
+          },
+          fail: (err) => {
+            console.error('请求后端接口失败', err);
+            wx.showToast({
+              title: '请求失败，请稍后重试',
+              icon: 'none',
+              duration: 2000
+            });
+          },
+        });
+      }else{
+        wx.showToast({
+          title: '外星人劫持了，您的订单',
+          icon: 'none',
+          duration: 2000
+        });
+      }
     },
+
 
     /**
      * 生命周期函数--监听页面初次渲染完成

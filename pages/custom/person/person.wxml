@@ -1,0 +1,40 @@
+<!-- 首页 -->
+<view class="container">
+  <view class="header">
+    <image class="newHeader" src="{{mask_group}}" mode="" />
+    <view class="con_header">
+      <view class="i_leff_header">
+        <image src="/assets/logo.jpg" mode="" />
+      </view>
+      <view class="t_radius_header">
+        <view class="t_title_header" bindtap="clickLogin">{{nickName}}</view>
+        <view class="d_text_header">登录后可以体验更多服务></view>
+      </view>
+    </view>
+  </view>
+  <view class="con_menu">
+    <view class="c_menu">
+      <view class="device" bindtap="clickDevice">
+        <view class="i_top_device">
+          <image src="/assets/icon_device.png" mode="" />
+        </view>
+        <view class="t_bottom_device">我的订单</view>
+      </view>
+      <view class="project" bindtap="clickProject">
+        <view class="i_top_project">
+          <image src="/assets/icon_project.png" mode="" />
+        </view>
+        <view class="t_bottom_project">我的反馈</view>
+      </view>
+    </view>
+    <view class="privacy">
+      <view class="i_leff_privacy">
+        <image src="/assets/icon_know_safe.png" mode="" />
+      </view>
+      <view class="t_centre_privacy">隐私条款</view>
+      <view class="i_right_privacy">
+        <image src="/assets/icon_privacy.png" mode="" />
+      </view>
+    </view>
+  </view>
+</view>
