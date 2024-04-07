@@ -1,12 +1,24 @@
 <t-message id="t-message" />
 <view class="container">
   <view class="prompt">
-    <view>请在详细填写问题描述、并尽可能上传故障照片和视频,方便工程师远程诊断并快速解决故障。</view>
+    <!-- <view>请在详细填写问题描述、并尽可能上传故障照片和视频,方便工程师远程诊断并快速解决故障。</view> -->
+    <view class="header_step">
+      <t-steps current="{{stepIndex}}" bind:change="onStepChange">
+        <t-step-item title="待处理" icon="{{step1_icon}}">
+        </t-step-item>
+        <t-step-item title="处理中" icon="{{step2_icon}}">
+        </t-step-item>
+        <t-step-item title="已完成" icon="{{step3_icon}}">
+        </t-step-item>
+      </t-steps>
+    </view>
   </view>
   <view class="content">
+  <view class="conProblem"><t-input class="problemID" label="问题编号" placeholder="问题编号" disabled value="{{dataList.caseAccountId}}"></t-input></view>
     <t-input class="required" label="姓名" placeholder="请输入姓名" disabled value="{{dataList.caseAccountId}}"></t-input>
     <t-input class="required" label="联系方式" placeholder="请输入联系方式" disabled value="{{dataList.phone}}"></t-input>
-    <t-input class="required" label="省市" placeholder="请输入省市" disabled value="{{province}}"></t-input>
+    <t-input class="required" label="省份" placeholder="请输入省市" disabled value="{{province}}"></t-input>
+    <t-input class="required" label="城市" placeholder="请输入区县" disabled value="{{City}}"></t-input>
     <t-input class="required" label="区县" placeholder="请输入区县" disabled value="{{City}}"></t-input>
     <t-input class="required" label="详细地址" placeholder="请输入详情地址" disabled value="{{dataList.customerAddress__c}}"></t-input>
     <view class="con_category">
@@ -22,7 +34,7 @@
       <t-textarea t-class="external-class" placeholder="请输入问题描述" maxlength="200" disableDefaultPadding="{{true}}" value = "{{dataList.problemDescription}}" indicator disabled />
     </view>
     <view class="con_billcode">
-      <text class="billcode">选择订单</text>
+      <text class="billcode">订单</text>
       <view class="example-search">
         <t-search model:value="{{value}}" placeholder="搜索我的订单" disabled />
       </view>

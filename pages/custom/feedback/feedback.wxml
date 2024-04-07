@@ -1,14 +1,30 @@
 <t-message id="t-message" />
 <view class="container">
   <view class="prompt">
-    <view>请在详细填写问题描述、并尽可能上传故障照片和视频,方便工程师远程诊断并快速解决故障。</view>
+    <view style="text-align: center;">请优先选择您的订单，并详细填写问题描述，以及尽可能上传问题照片和视频，以便我们更好的定位问题。</view>
   </view>
   <view class="content">
-    <t-input style="{{inputNameBorderStyle}}" value="{{inputName}}" class="required" bindchange = "inputName" label="姓名" placeholder="请输入姓名"></t-input>
-    <t-input style="{{inputPhoneBorderStyle}}" value="{{inputPhone}}" tips="{{phoneError ? '手机号输入不正确' : ''}}" class="required" bindchange = "inputPhone" label="联系方式" placeholder="请输入联系方式"></t-input>
-    <t-input style="{{inputProvinceBorderStyle}}" value="{{inputProvince}}" class="required" bindchange = "inputProvince" label="省份" placeholder="请输入省份"></t-input>
-    <t-input style="{{inputCountyBorderStyle}}" value="{{inputCounty}}" class="required" bindchange = "inputCounty" label="市区" placeholder="请输入市区"></t-input>
-    <t-input style="{{inputAddressBorderStyle}}" value="{{inputAddress}}" class="required" bindchange = "inputAddress" label="详细地址" placeholder="请输入详情地址"></t-input>
+    <t-input style="{{inputNameBorderStyle}}" value="{{inputName}}" class="required" bindchange="inputName" label="姓名" placeholder="请输入姓名"></t-input>
+    <t-input style="{{inputPhoneBorderStyle}}" value="{{inputPhone}}" tips="{{phoneError ? '手机号输入不正确' : ''}}" class="required" bindchange="inputPhone" label="联系方式" placeholder="请输入联系方式"></t-input>
+    <!-- <t-input style="{{inputProvinceBorderStyle}}" value="{{inputProvince}}" class="required" bindchange = "inputProvince" label="省份" placeholder="请输入省份"></t-input>
+    <t-input style="{{inputCountyBorderStyle}}" value="{{inputCounty}}" class="required" bindchange = "inputCounty" label="市区" placeholder="请输入市区"></t-input> -->
+    <!-- 省 -->
+    <t-cell class="required" style="{{inputProvinceBorderStyle}}" title="省份" arrow hover note="{{provinceText}}" bind:click="onProvincePicker" />
+    <t-picker visible="{{provinceVisible}}" value="{{provinceValue}}" data-key="province" title="选择省份" cancelBtn="取消" confirmBtn="确认" bindchange="onPickerChange" bindcancel="onPickerCancel">
+      <t-picker-item options="{{provinceList}}" />
+    </t-picker>
+    <!-- 市 -->
+    <t-cell class="required" style="{{inputCityBorderStyle}}" title="城市" arrow hover note="{{cityText}}" bind:click="onCityPicker" />
+    <t-picker visible="{{cityVisible}}" value="{{cityValue}}" data-key="city" title="选择城市" cancelBtn="取消" confirmBtn="确认" bindchange="onPickerChange2" bindcancel="onPickerCancel2">
+      <t-picker-item options="{{cityList}}" />
+    </t-picker>
+    <!-- 县 -->
+    <t-cell class="required" style="{{inputCountyBorderStyle}}" title="区县" arrow hover note="{{countyText}}" bind:click="onCountyPicker" />
+    <t-picker visible="{{countyVisible}}" value="{{countyValue}}" data-key="county" title="选择区县" cancelBtn="取消" confirmBtn="确认" bindchange="onPickerChange3" bindcancel="onPickerCancel3">
+      <t-picker-item options="{{countyList}}" />
+    </t-picker>
+
+    <t-input style="{{inputAddressBorderStyle}}" value="{{inputAddress}}" class="required" bindchange="inputAddress" label="详细地址" placeholder="请输入详情地址"></t-input>
     <view class="con_category">
       <view class="category">问题类别</view>
       <t-radio-group class="radio" defaultValue="{{defaultValue}}" disabled="{{false}}" bindchange="radioChange">
@@ -19,13 +35,17 @@
     </view>
     <view class="describe">问题描述</view>
     <view class="con_textarea">
-      <t-textarea style="{{inputTextareaBorderStyle}}" value="{{inputTextarea}}" bindchange = "inputTextarea" t-class="external-class" placeholder="请输入问题描述" maxlength="200" disableDefaultPadding="{{true}}" indicator />
+      <t-textarea style="{{inputTextareaBorderStyle}}" value="{{inputTextarea}}" bindchange="inputTextarea" t-class="external-class" placeholder="请输入问题描述" maxlength="200" disableDefaultPadding="{{true}}" indicator />
     </view>
     <view class="con_billcode">
-      <text class="billcode">选择订单</text>
+      <t-cell class="required_no" title="选择历史订单" arrow hover note="{{historyText}}" bind:click="onHistoryPicker" />
+      <t-picker visible="{{historyVisible}}" value="{{historyValue}}" data-key="province" title="选择历史订单" cancelBtn="取消" confirmBtn="确认" bindchange="onHistoryChange" bindcancel="onHistoryCancel">
+        <t-picker-item options="{{historyList}}" />
+      </t-picker>
+      <!-- <text class="billcode">选择订单</text>
       <view class="example-search">
         <t-search model:value="{{value}}" placeholder="搜索我的订单" />
-      </view>
+      </view> -->
     </view>
     <view class="con_update">
       <text class="up_name">上传图片</text>

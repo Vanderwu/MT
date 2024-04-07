@@ -19,8 +19,6 @@
                   <!-- <text>{{item["distributorName__c"]}}</text> -->
                 </view>
               </view>
-              <!-- <view class="list_title_right_delivery">预计配送时间:{{item["delivery_date"]}}</view>
-              <view class="list_title_right_install">预计安装时间:{{item["install_date"]}}</view> -->
             </view>
           </view>
         </view>
@@ -67,8 +65,6 @@
                   <!-- <text>{{item["distributorName__c"]}}</text> -->
                 </view>
               </view>
-              <!-- <view class="list_title_right_delivery">预计配送时间:{{item["delivery_date"]}}</view>
-              <view class="list_title_right_install">预计安装时间:{{item["install_date"]}}</view> -->
             </view>
           </view>
         </view>

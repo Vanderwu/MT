@@ -61,7 +61,8 @@
         "pages/custom/feedback_details/feedback_details",
         "pages/custom/evaluate/evaluate",
         "pages/custom/feedback_content/feedback_content",
-        "pages/custom/person/person"
+        "pages/custom/person/person",
+        "pages/custom/evaluate_details/evaluate_details"
     ],
     "subpackages": [
         {

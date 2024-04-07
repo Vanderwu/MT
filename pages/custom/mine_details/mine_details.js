@@ -5,7 +5,7 @@ Page({
      * 页面的初始数据
      */
     data: {
-      showViews: true,
+      showViews: '',
       stepIndex: 0,
       step1_icon: "../../../assets/step1.png",
       step2_icon: "../../../assets/step2.png",
@@ -15,6 +15,9 @@ Page({
       s3_icon : '',
       checkboxHeight:168,
       checkboxValue: true,
+      display1 :'',
+      display2 :'',
+      display3 :'',
       dataList:{}
     },
 
@@ -39,17 +42,34 @@ Page({
           success: (res) => {
             if(res.data.data.length > 0){
               let dataSource = res.data.data[0];
+              let isTrue = true//dataSource.if_coninsall__c
+              if(isTrue){
+                this.setData({
+                  checkboxValue:true,
+                  checkboxHeight:168
+                })
+              }else{
+                this.setData({
+                  checkboxValue:false,
+                  checkboxHeight:128,
+                  showViews:"display: none;"
+                })
+              }
               if(dataSource.status__c == '0'){
                 this.setData({
                   s1_icon : "../../../assets/step_1.png",
                   s2_icon : "../../../assets/step2.png",
-                  s3_icon : "../../../assets/step3.png" 
+                  s3_icon : "../../../assets/step3.png" ,
+                  display3:" display: none;",
+                  display2:" display: none;"
+
                 })
               }else if(dataSource.status__c == '1'){
                 this.setData({
                   s1_icon : "../../../assets/step1.png",
                   s2_icon : "../../../assets/step_2.png",
-                  s3_icon : "../../../assets/step3.png"
+                  s3_icon : "../../../assets/step3.png",
+                  display3:" display: none;",
                 })  
               }else{
                 this.setData({
@@ -140,15 +160,15 @@ Page({
 
     },
     /**监听订单信息中单选框 */
-    onCheckboxChange: function(event) {
-      let value = false//this.data.showViews;
-      let lastValue = this.data.checkboxValue;
-      this.setData({
-        showViews: !value,
-        checkboxValue:!lastValue,
-        checkboxHeight: !value ? 168 : 126 //默认高度126px当勾选单选框，则高度为168px
-      });
-    },
+    // onCheckboxChange: function(event) {
+    //   let value = true//this.data.showViews;
+    //   let lastValue = this.data.checkboxValue;
+    //   this.setData({
+    //     showViews: !value,
+    //     checkboxValue:!lastValue,
+    //     checkboxHeight: !value ? 168 : 126
+    //   });
+    // },
     onStepChange(e) {
       this.setData({ stepIndex: e.detail.current });
     },

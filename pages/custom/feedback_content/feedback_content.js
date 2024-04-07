@@ -6,6 +6,10 @@ Page({
      * 页面的初始数据
      */
     data: {
+      stepIndex: 0,
+      step1_icon: "../../../assets/step1.png",
+      step2_icon: "../../../assets/step2.png",
+      step3_icon: "../../../assets/step3.png",
       value: 'SO20240221-0002',
       visible: false,
       name:"李女士",
@@ -53,6 +57,25 @@ Page({
           method: 'GET',
           success: (res) => {
             let dataSource = res.data.data;
+            if(dataSource.caseStatus == '2'){
+              this.setData({
+                step1_icon : "../../../assets/step_1.png",
+                step2_icon: "../../../assets/step2.png",
+                step3_icon: "../../../assets/step3.png"
+              })
+            }else if(dataSource.caseStatus == '3'){
+              this.setData({
+                step1_icon : "../../../assets/step1.png",
+                step2_icon: "../../../assets/step_2.png",
+                step3_icon: "../../../assets/step3.png"
+              })
+            }else{
+              this.setData({
+                step1_icon : "../../../assets/step1.png",
+                step2_icon: "../../../assets/step2.png",
+                step3_icon: "../../../assets/step_3.png"
+              })
+            }
             this.setData({
               dataList:dataSource,
               defaultValue:dataSource.questionType+""
@@ -139,6 +162,7 @@ Page({
       });
     },
     handleClick() {
+      console.log("visible",visible)
       this.setData({ visible: true });
     },
     handleOverlayClick(e) {
@@ -150,6 +174,9 @@ Page({
       this.setData({
         visible: e.detail.visible,
       });
+    },
+    onStepChange(e) {
+      this.setData({ stepIndex: e.detail.current });
     },
     // handleSuccess(e) {
     //   const { files } = e.detail;

@@ -1,11 +1,13 @@
 // pages/custom/HomePage/HomePage.js
+const app = getApp()
 Page({
 
     /**
      * 页面的初始数据
      */
     data: {
-      mask_group :'/assets/mask-group.png'
+      mask_group :'/assets/mask-group.png',
+      effective:false
     },
 
     /**
@@ -26,7 +28,7 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow() {
-
+      this.logineffective()
     },
 
     /**
@@ -63,29 +65,82 @@ Page({
     onShareAppMessage() {
 
     },
-
+    logineffective(){
+      let that = this;
+      wx.checkSession({
+        success: function() {
+          that.setData({
+            effective: true
+          });
+        },
+        fail: function() {
+          that.setData({
+            effective:false
+          })
+          // 登录态失效，用户未登录或登录态已过期，需要重新登录
+          console.log("用户未登录或登录态已过期，需要重新登录");
+          // 在这里可以执行重新登录的逻辑，比如调用 wx.login() 方法重新获取登录凭证
+        }
+      });
+    },
     option_1:function(){
       // 我的订单
-      wx.navigateTo({
-        url: '/pages/custom/mine/mine'
-      });
+      this.logineffective()
+      if(this.data.effective){
+        wx.navigateTo({
+          url: '/pages/custom/mine/mine'
+        });
+      }else{
+        wx.showToast({
+          title: '身份令牌已失效请重新登录',
+          icon:'none',
+          document:3000
+        })
+      }
     },
     option_2:function(){
       // 问题反馈
-      wx.navigateTo({
-        url: '/pages/custom/feedback/feedback'
-      });
+      this.logineffective()
+      if(this.data.effective){
+        wx.navigateTo({
+          url: '/pages/custom/feedback/feedback'
+        });
+      }else{
+        wx.showToast({
+          title: '身份令牌已失效请重新登录',
+          icon:'none',
+          document:3000
+        })
+      }
     },
     option_3:function(){
       // 我的反馈
-      wx.navigateTo({
-        url: '/pages/custom/feedback_details/feedback_details'
-      });
+      this.logineffective()
+      if(this.data.effective){
+        wx.navigateTo({
+          url: '/pages/custom/feedback_details/feedback_details'
+        });
+      }else{
+        wx.showToast({
+          title: '身份令牌已失效请重新登录',
+          icon:'none',
+          document:3000
+        })
+      }
     },
     option_4:function(){
       // 我的评价
-      wx.navigateTo({
-        url: '/pages/custom/evaluate/evaluate'
-      });
+      this.logineffective()
+      if(this.data.effective){
+        wx.navigateTo({
+          url: '/pages/custom/evaluate/evaluate'
+        });
+      }else{
+        wx.showToast({
+          title: '身份令牌已失效请重新登录',
+          icon:'none',
+          document:3000
+        })
+      }
     }
 })

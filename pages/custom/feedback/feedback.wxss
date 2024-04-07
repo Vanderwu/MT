@@ -65,6 +65,11 @@ page {
   color: red;
   margin-right: 5px;
 }
+.required_no::before{
+  content: "*";
+  color: #ffffff;
+  margin-right: 5px;
+}
 
 .t-input {
   padding: 12px !important;
@@ -247,3 +252,14 @@ t-input__control t-left t-class-input {
   width: 60px !important;
   height: 60px !important;
 }
+
+.t-cell__note{
+  font-size: 15px !important;
+}
+.t-cell__title-text{
+  font-size: 16px !important;
+  color: #646566 !important;
+}
+
+
+

@@ -93,50 +93,64 @@ Page({
   },
 
   searchList(event){
-    wx.request({
-      url: app.loginHost.apiUrl+'api/service-case/list',
-      data: 
-      {
-        "caseStatus": "",
-        "caseNo": "",
-        "name": ""
-      },
-      method: 'POST',
-      success: (res) => {
-        let dataSource = res.data.data;
-        let index = 0;
-        if(dataSource.length > 0){
-          setTimeout(() =>{
-            let data = {toBegin:[],inProgress:[],done:[]};
-            data["toBegin"] = dataSource.filter(val => val["caseStatus"] === 2);
-            data["inProgress"] = dataSource.filter(val => val["caseStatus"] === 3);
-            data["done"] = dataSource.filter(val => val["caseStatus"] === 5);
-            if(data["toBegin"].length>0){
-              index = 0;
-            }
-            if(data["inProgress"].length>0){
-              index = 1;
-            }
-            if(data["done"].length>0){
-              index = 2;
-            }
-            // data = this.data.srcListObj;
-            this.setData({
-              searchListObj: data, 
-              // tabIndex: index
-            });
-          },66)
-        }
-      },
-      fail: (err) => {
-        console.error('请求后端接口失败', err);
-        wx.showToast({
-          title: '请求失败，请稍后重试',
-          icon: 'none',
-          duration: 2000
-        });
-      },
-    });
+    try{
+      wx.request({
+        url: app.loginHost.apiUrl+'api/service-case/list',
+        data: 
+        {
+          "caseStatus": "",
+          "caseNo": "",
+          "name": ""
+        },
+        method: 'POST',
+        success: (res) => {
+          let dataSource = res.data.data;
+          let index = 0;
+          if(dataSource.length > 0){
+            setTimeout(() =>{
+              let data = {toBegin:[],inProgress:[],done:[]};
+              data["toBegin"] = dataSource.filter(val => val["caseStatus"] === 2);
+              data["inProgress"] = dataSource.filter(val => val["caseStatus"] === 3);
+              data["done"] = dataSource.filter(val => val["caseStatus"] === 5);
+              if(data["toBegin"].length>0){
+                index = 0;
+              }
+              if(data["inProgress"].length>0){
+                index = 1;
+              }
+              if(data["done"].length>0){
+                index = 2;
+              }
+              // data = this.data.srcListObj;
+              this.setData({
+                searchListObj: data, 
+                // tabIndex: index
+              });
+            },66)
+          }else{
+            wx.showToast({
+              title: '查无数据',
+              icon:'none',
+              document:2000
+            })
+          }
+        },
+        fail: (err) => {
+          console.error('请求后端接口失败', err);
+          wx.showToast({
+            title: '请求失败，请稍后重试',
+            icon: 'none',
+            duration: 2000
+          });
+        },
+      });
+    }catch(error){
+      wx.showToast({
+        title: error.message,
+        icon: 'none',
+        duration: 2000
+      })
+    }
   },
   onClickListItem(event){
     let item = event.currentTarget.dataset.item;

@@ -1,6 +1,7 @@
 // pages/custom/feedback/feedback.js
 const app = getApp()
 import Message from 'tdesign-miniprogram/message/index';
+import utilTools from "../../../utils/utilTools";
 Page({
 
     /**
@@ -11,6 +12,7 @@ Page({
       inputName:'',
       inputPhone:'',
       inputProvince:'',
+      inputCity:'',
       inputCounty:'',
       inputAddress:'',
       inputTextarea:'',
@@ -18,6 +20,22 @@ Page({
       defaultValue:'0',
       selectedValue:'',
       phoneError: false,
+      provinceText: '',
+      historyText:'',
+      provinceVisible: false,
+      historyVisible: false,
+      provinceValue: [],
+      historyValue: [],
+      cityText: '',
+      cityVisible: false,
+      cityValue: [],
+      cityList: [],
+      countyList: [],
+      countyText: '',
+      countyVisible: false,
+      countyValue: [],
+      provinceList: utilTools.getProvinceList(),
+      historyList: [],
       gridConfig: {
         column: 5,
         width: 80,
@@ -33,13 +51,49 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad(options) {
-      let po = options.po;
-      if(po){
-        this.setData({
-          value:po
-        })
-      }
-
+      wx.request({
+        url: app.loginHost.apiUrl+'api/order/list',
+        data: 
+        {
+          "deliveryDate": "",
+          "status__c": "",
+          "orderType__c": "",
+          "transactionDate": "",
+          "po": "",
+          "accountName": "",
+          "accountPhone": ""
+        },
+        method: 'POST',
+        success: (res) => {
+          let response = res.data.data
+          console.log("response",res)
+          let po = options.po; //订单号传值
+          let historyListMap = response.filter(item => item.status__c != 2).map(item => {
+            return {
+              label: item.po,
+              value: item.po
+            };
+          });
+          this.setData({
+            historyList: historyListMap
+          });
+          if(po){
+            this.setData({
+              historyVisible: false,
+              historyValue: po,
+              historyText: po
+            })
+          }
+        },
+        fail: (err) => {
+          console.error('请求后端接口失败', err);
+          wx.showToast({
+            title: '请求失败，请稍后重试',
+            icon: 'none',
+            duration: 2000
+          });
+        },
+      });
     },
 
     /**
@@ -53,7 +107,6 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow() {
-
     },
 
     /**
@@ -109,20 +162,6 @@ Page({
         });
       }
     },
-    inputProvince(e){
-      //省份
-      this.setData({
-        inputProvince:e.detail.value,
-        inputProvinceBorderStyle: e.detail.value ? "": "border-bottom: 0.5px solid rgb(235, 115, 115);"
-      });
-    },
-    inputCounty(e){
-      //区县
-      this.setData({
-        inputCounty:e.detail.value,
-        inputCountyBorderStyle: e.detail.value ? "": "border-bottom: 0.5px solid rgb(235, 115, 115);"
-      });
-    },
     inputAddress(e){
       //详细地址
       this.setData({
@@ -143,7 +182,7 @@ Page({
     },
     handleTap(){
       let hasEmptyField = false; // 用于记录是否存在未填写的字段
-      const inputFields = ['inputName', 'inputPhone', 'inputProvince', 'inputCounty', 'inputAddress', 'inputTextarea'];
+      const inputFields = ['inputName', 'inputPhone', 'inputProvince', 'inputCounty', 'inputAddress', 'inputTextarea','inputCity'];
       
       inputFields.forEach(field => {
         const borderStyle = field === 'inputTextarea' ? "border: 0.5px solid rgb(235, 115, 115);" : "border-bottom: 0.5px solid rgb(235, 115, 115);";
@@ -168,7 +207,6 @@ Page({
       }
     },    
     showSuccessMessage() {
-      console.log("9999",this.data.selectedValue)
       wx.request({
         url: app.loginHost.apiUrl+'api/service-case',
         data: 
@@ -177,7 +215,7 @@ Page({
           "questionType": this.data.selectedValue,
           "problemDescription": this.data.inputTextarea,
           "name": this.data.inputName,
-          "caseNo": this.data.value,
+          "caseNo": this.data.historyText,
           "caseAccountId": this.data.inputName,
           "caseStatus": "2",
           "picture": "",
@@ -240,6 +278,91 @@ Page({
     },
     handleClick(e) {
       console.log(e.detail.file);
+    },
+    onPickerChange(e) {
+      let value = e.detail.value;
+      let label = e.detail.label;
+      let cityList = utilTools.getCityList(value)
+      this.setData({
+        provinceVisible: false,
+        provinceValue: value[0],
+        provinceText: label[0],
+        inputProvince:label[0],
+        cityValue: [],
+        cityText: '',
+        cityList: cityList,
+        countyValue: "",
+        countyText: "",
+        'mainForm.province':label[0],
+        'mainForm.city': "",
+        'mainForm.country': "",
+        inputProvinceBorderStyle:""
+      });
+    },
+    onHistoryChange(e) {
+      let value = e.detail.value;
+      let label = e.detail.label;
+      this.setData({
+        historyVisible: false,
+        historyValue: value[0],
+        historyText: label[0]
+      });
+    },
+    onProvincePicker() {
+      this.setData({ provinceVisible: true });
+    },
+    onHistoryPicker() {
+      this.setData({ historyVisible: true });
+    },
+    onPickerChange2(e) {
+      let value = e.detail.value;
+      let label = e.detail.label;
+      this.setData({
+        cityVisible: false,
+        cityValue: value[0],
+        cityText: label[0],
+        inputCity:label[0],
+        countyValue: "",
+        countyText: "",
+        countyList: utilTools.getCountyList(value[0]),
+        'mainForm.city': label[0],
+        'mainForm.country': "",
+        inputCityBorderStyle:""
+      });
+    },
+    onPickerCancel2(e) {
+      const { key } = e.currentTarget.dataset;
+      console.log(e, '取消');
+      console.log('picker1 cancel:');
+      this.setData({
+        [`${key}Visible`]: false,
+      });
+    },
+    onCityPicker() {
+      this.setData({ cityVisible: true });
+    },
+    onCountyPicker() {
+      this.setData({ countyVisible: true });
+    },
+    onPickerChange3(e) {
+      let value = e.detail.value;
+      let label = e.detail.label;
+      this.setData({
+        countyVisible: false,
+        countyValue: value[0],
+        countyText: label[0],
+        inputCounty:label[0],
+        'mainForm.country': label[0],
+        inputCountyBorderStyle:""
+      });
+    },
+    onPickerCancel3(e) {
+      const { key } = e.currentTarget.dataset;
+      console.log(e, '取消');
+      console.log('picker1 cancel:');
+      this.setData({
+        [`${key}Visible`]: false,
+      });
     },
     resetting(){
       this.setData({

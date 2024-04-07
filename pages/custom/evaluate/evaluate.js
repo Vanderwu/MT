@@ -125,9 +125,9 @@ Page({
   onClickListItem(event){
     let item = event.currentTarget.dataset.item;
     // 在当前 TabBar 页面的事件处理函数中进行跳转操作
-    // wx.navigateTo({
-    //   url: '/pages/custom/feedback_content/feedback_content'  // 跳转到非 TabBar 页面的路径
-    // });      
+    wx.navigateTo({
+      url: '/pages/custom/evaluate_details/evaluate_details?url=https://www.wjx.cn/xz/30133265.aspx',
+    });  
   },
 
 })

@@ -6,7 +6,6 @@
         <view wx:for="{{searchListObj['toBegin']}}" wx:for-index="index" wx:for-item="item" data-item="{{item}}" wx:key="index" class="list" bindtap="onClickListItem">
           <view class="list_title">
             <view class="list_title_left">
-              <!-- <view class="list_title_left_icon" style="background-image: url('../../../assets/commodity_img.png');"></view> -->
               <image class="list_title_left_icon" src="../../../assets/Comments.png" mode="" />
             </view>
             <view class="list_title_right">
@@ -18,8 +17,6 @@
                   <text>{{item["install_type"]}}</text>
                 </view>
               </view>
-              <!-- <view class="list_title_right_delivery">预计配送时间:{{item["delivery_date"]}}</view>
-              <view class="list_title_right_install">预计安装时间:{{item["install_date"]}}</view> -->
             </view>
           </view>
         </view>
