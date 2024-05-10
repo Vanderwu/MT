@@ -12,7 +12,7 @@
     </view>
     <view class="header_step">
       <t-steps current="{{stepIndex}}" bind:change="onStepChange">
-        <t-step-item title="待支付" icon="{{step1_icon}}">
+        <t-step-item title="待交付" icon="{{step1_icon}}">
         </t-step-item>
         <t-step-item title="交付中" icon="{{step2_icon}}">
         </t-step-item>
@@ -21,20 +21,33 @@
       </t-steps>
     </view>
   </view>
-  <view class="m_information" style="height: {{checkboxHeight}}px;">
+  <!-- <view class="m_information" style="height: {{checkboxHeight}}px;">
     <view class="m_info_title">订单信息</view>
-    <view class="m_info_name">客户地址:上海市长宁区江苏路128号</view>
+    <view class="m_info_name">客户地址:{{dataList.customerAddress}}</view>
     <view class="m_info_install"><text>是否具有安装条件</text>
-      <!-- <checkbox class="m_info_install_checkbox" name="checkbox" bindtap="onCheckboxChange" /> -->
-      <t-checkbox label="" icon="rectangle" checked="{{checkboxValue}}" disabled />
+      <t-checkbox label="" icon="rectangle" checked="{{dataList.ifConinsall__C}}" disabled />
     </view>
     <view class="m_info_container" style="{{showViews}}">
       <view class="m_info_deliverytime">
-        <text>预计配送时间:2024年3月15日</text>
+        <text>预计配送时间:{{dataList.estimatedDeliveryDate}}</text>
         <image src="../../../assets/delivery.png" mode="aspectFit" />
       </view>
       <view class="m_info_installationtime">
-        <text>预计安装时间:2024年3月22日</text>
+        <text>预计安装时间:{{dataList.estimatedInstallDate}}</text>
+        <image src="../../../assets/installation.png" mode="aspectFit" />
+      </view>
+    </view>
+  </view> -->
+  <view class="m_information" style="height: {{checkboxHeight}}px;">
+    <view class="m_info_title">订单信息</view>
+    <view class="m_info_name">客户地址:{{dataList.customerAddress}}</view>
+    <view class="m_info_container">
+      <view class="m_info_deliverytime" style="{{isDelivery}}">
+        <text>预计配送时间:{{dataList.estimatedDeliveryDate}}</text>
+        <image src="../../../assets/delivery.png" mode="aspectFit" />
+      </view>
+      <view class="m_info_installationtime" style="{{isInstall}}">
+        <text>预计安装时间:{{dataList.estimatedInstallDate}}</text>
         <image src="../../../assets/installation.png" mode="aspectFit" />
       </view>
     </view>
@@ -71,7 +84,7 @@
       </view>
       <view class="m_Order_information_text">
         <view class="t_title">已完成</view>
-        <view class="t_date">2024-02-21 14:56:26</view>
+        <view class="t_date">{{dataList.orderCompletedDate__C}}</view>
         <view class="t_details">您的订单已完成，诚邀您进行服务评价（如已完成，请联系经销商获取更多梦天产品咨询)。</view>
       </view>
     </view>
@@ -82,7 +95,7 @@
       </view>
       <view class="m_Order_information_text">
         <view class="t_title">已发货</view>
-        <view class="t_date">2024-02-21 14:56:26</view>
+        <view class="t_date">{{dataList.shipmentDate__C}}</view>
         <view class="t_details">您的订单已发货，正在为您加紧安排配送/安装中，请留意您的电话，确保及时预约梦天服务。</view>
       </view>
     </view>
@@ -92,7 +105,7 @@
       </view>
       <view class="m_Order_information_text">
         <view class="t_title">已下单</view>
-        <view class="t_date">2024-02-21 14:56:26</view>
+        <view class="t_date">{{dataList.transactionDate}}</view>
         <view class="t_details">您的订单已创建，正在为您加紧排产中，请您耐心等待发货通知，如有疑问，请联系经销商。</view>
       </view>
     </view>

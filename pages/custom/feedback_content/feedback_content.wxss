@@ -239,7 +239,6 @@ t-input__control t-left t-class-input {
 }
 .wrapper{
   margin-left:20px ;
-  /* border: 1px solid red; */
 }
 .upload_image_content{
   width: 100%;
@@ -278,7 +277,9 @@ t-input__control t-left t-class-input {
   height: 44px !important;
 }
 
-
+/* .t-icon-base{
+  display: none !important;
+} */
 
 .upload_image_content .t-icon, .t-icon--image{
   display: flex !important;

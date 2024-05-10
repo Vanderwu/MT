@@ -12,6 +12,14 @@ Page({
 
       done: [{number:"CS20240720-0001",dealer:"配送司机A",delivery_date: "2024年03月15日","install_type":"已完成"},{number:"CS20240720-0002",dealer:"安装技工B",delivery_date: "2024年03月15日","install_type":"已完成"}]
     },
+    cur: {},
+    position: [
+      { value: 'top', text: '顶部弹出' },
+      { value: 'left', text: '左侧弹出' },
+      { value: 'center', text: '中间弹出' },
+      { value: 'bottom', text: '底部弹出' },
+      { value: 'right', text: '右侧弹出' },
+    ],
     searchListObj: {
       toBegin: [],
       inProgress: [],
@@ -126,8 +134,25 @@ Page({
     let item = event.currentTarget.dataset.item;
     // 在当前 TabBar 页面的事件处理函数中进行跳转操作
     wx.navigateTo({
-      url: '/pages/custom/evaluate_details/evaluate_details?url=https://www.wjx.cn/xz/30133265.aspx',
+      url:'/pages/custom/evaluate_details/evaluate_details'
+      // url: '/pages/custom/evaluate_details/evaluate_details?url=https://fsc-sandbox.txscrm.com/TJWKKZIXHHF',
     });  
   },
+  handlePopup(e) {
+    const { item } = e.currentTarget.dataset;
 
+    this.setData(
+      {
+        cur: item,
+      },
+      () => {
+        this.setData({ visible: true });
+      },
+    );
+  },
+  onVisibleChange(e) {
+    this.setData({
+      visible: e.detail.visible,
+    });
+  },
 })

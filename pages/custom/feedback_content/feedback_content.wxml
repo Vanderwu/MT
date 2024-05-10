@@ -14,13 +14,13 @@
     </view>
   </view>
   <view class="content">
-  <view class="conProblem"><t-input class="problemID" label="问题编号" placeholder="问题编号" disabled value="{{dataList.caseAccountId}}"></t-input></view>
-    <t-input class="required" label="姓名" placeholder="请输入姓名" disabled value="{{dataList.caseAccountId}}"></t-input>
-    <t-input class="required" label="联系方式" placeholder="请输入联系方式" disabled value="{{dataList.phone}}"></t-input>
-    <t-input class="required" label="省份" placeholder="请输入省市" disabled value="{{province}}"></t-input>
-    <t-input class="required" label="城市" placeholder="请输入区县" disabled value="{{City}}"></t-input>
-    <t-input class="required" label="区县" placeholder="请输入区县" disabled value="{{City}}"></t-input>
-    <t-input class="required" label="详细地址" placeholder="请输入详情地址" disabled value="{{dataList.customerAddress__c}}"></t-input>
+  <view class="conProblem"><t-input class="problemID" label="问题编号" placeholder="问题编号" disabled value="{{dataList.caseNo}}"></t-input></view>
+    <t-input class="required" label="姓名" placeholder="姓名" disabled value="{{dataList.customerName}}"></t-input>
+    <t-input class="required" label="联系方式" placeholder="联系方式" disabled value="{{dataList.phone}}"></t-input>
+    <t-input class="required" label="省份" placeholder="省市" disabled value="{{provincelabel}}"></t-input>
+    <t-input class="required" label="城市" placeholder="城市" disabled value="{{Citylabel}}"></t-input>
+    <t-input class="required" label="区县" placeholder="区县" disabled value="{{countylabel}}"></t-input>
+    <t-input class="required" label="详细地址" placeholder="详情地址" disabled value="{{dataList.address}}"></t-input>
     <view class="con_category">
       <view class="category">问题类别</view>
       <t-radio-group class="radio" value="{{defaultValue}}" disabled="{{false}}" disabled>
@@ -31,12 +31,12 @@
     </view>
     <view class="describe">问题描述</view>
     <view class="con_textarea">
-      <t-textarea t-class="external-class" placeholder="请输入问题描述" maxlength="200" disableDefaultPadding="{{true}}" value = "{{dataList.problemDescription}}" indicator disabled />
+      <t-textarea t-class="external-class" placeholder="问题描述" maxlength="200" disableDefaultPadding="{{true}}" value = "{{dataList.problemDescription}}" indicator disabled />
     </view>
     <view class="con_billcode">
       <text class="billcode">订单</text>
       <view class="example-search">
-        <t-search model:value="{{value}}" placeholder="搜索我的订单" disabled />
+        <t-search model:value="{{caseNo}}" placeholder="我的订单" disabled />
       </view>
     </view>
     <view class="con_update">

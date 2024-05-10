@@ -1,5 +1,6 @@
 const app = getApp()
 import Message from 'tdesign-miniprogram/message/index';
+import { http } from "../../../utils/http"
 Page({
 
     /**
@@ -10,15 +11,20 @@ Page({
       step1_icon: "../../../assets/step1.png",
       step2_icon: "../../../assets/step2.png",
       step3_icon: "../../../assets/step3.png",
-      value: 'SO20240221-0002',
+      value: '',
       visible: false,
-      name:"李女士",
-      phone:"137xxxxxx7932",
-      province:"上海",
-      City:"上海市",
-      address:"上海市嘉定区宝翔路宏利瑞园5栋501",
+      name:"",
+      phone:"",
+      provinceValue:"",
+      CityValue:"",
+      countyValue:"",
+      provincelabel:"",
+      Citylabel:"",
+      countylabel:"",
+      address:"",
       dataList:{},
       defaultValue:"0",
+      caseNo:"",
       gridConfig: {
         column: 5,
         width: 80,
@@ -27,58 +33,71 @@ Page({
       config: {
         count: 1,
       },
-      originFiles: [
-        {
-          url: 'https://tdesign.gtimg.com/mobile/demos/example4.png',
-          name: 'uploaded1.png',
-          type: 'image',
-        },
-        {
-          url: 'https://tdesign.gtimg.com/mobile/demos/example6.png',
-          name: 'uploaded2.png',
-          type: 'image',
-        },
-        {
-          url: 'https://tdesign.gtimg.com/mobile/demos/example5.png',
-          name: 'uploaded3.png',
-          type: 'image',
-        },
-      ],
+      originFiles: [],
       maxFiles: 3, // 设置最大上传文件数量为3
     },
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad(options) {
+      var that = this;
       let id = options.id
       if(id){
-        wx.request({
+        http({
           url: app.loginHost.apiUrl+'api/service-case?id='+encodeURIComponent(id),
           method: 'GET',
           success: (res) => {
             let dataSource = res.data.data;
-            if(dataSource.caseStatus == '2'){
+            console.log("2111",dataSource.orderNeoId)
+            if(dataSource.clientCaseStatusC == '1'){
               this.setData({
                 step1_icon : "../../../assets/step_1.png",
                 step2_icon: "../../../assets/step2.png",
-                step3_icon: "../../../assets/step3.png"
+                step3_icon: "../../../assets/step3.png",
+                stepIndex:0
               })
-            }else if(dataSource.caseStatus == '3'){
+            }else if(dataSource.clientCaseStatusC == '2'){
               this.setData({
                 step1_icon : "../../../assets/step1.png",
                 step2_icon: "../../../assets/step_2.png",
-                step3_icon: "../../../assets/step3.png"
+                step3_icon: "../../../assets/step3.png",
+                stepIndex:1
               })
             }else{
               this.setData({
                 step1_icon : "../../../assets/step1.png",
                 step2_icon: "../../../assets/step2.png",
-                step3_icon: "../../../assets/step_3.png"
+                step3_icon: "../../../assets/step_3.png",
+                stepIndex:2
               })
             }
+            let picture = dataSource.picture;
+            let originFiles = picture.map(fileId => {
+              return {
+                  url: `https://sh.mengtian.com.cn:9595/md/api/common/file/direct-download?fileId=${fileId}`
+              };
+          });
+          http({
+            url: app.loginHost.apiUrl+'api/order?neoid='+dataSource.orderNeoId,
+            method: 'GET',
+            success: function(res) {
+              if(res.data.code == 'success'){
+                that.setData({
+                  caseNo:res.data.data.po
+                });
+              }
+            },
+            fail: function(err) {
+              console.error('请求失败', err);
+            }
+          });
             this.setData({
               dataList:dataSource,
-              defaultValue:dataSource.questionType+""
+              defaultValue:dataSource.questionType+"",
+              provinceValue:dataSource.province,
+              CityValue:dataSource.city,
+              countyValue:dataSource.district,
+              originFiles:originFiles
             });
           },
           fail: (err) => {
@@ -97,6 +116,63 @@ Page({
           duration: 2000
         });
       }
+      ////省份
+      wx.request({
+        url: app.loginHost.apiUrl+'api/common/pick-list?apiName=province',
+        method: 'GET',
+        success: function(res) {
+          if(res.data.code == 'success'){
+            let dataList = res.data.data
+            let codeToMatch = that.data.provinceValue;
+            let matchedItem = dataList.find(item => item.optionCode === codeToMatch);
+
+            that.setData({
+              provincelabel:matchedItem ? matchedItem.optionLabel :null
+            })
+          }
+        },
+        fail: function(err) {
+          console.error('请求失败', err);
+        }
+      });
+
+     //市区
+     wx.request({
+      url: app.loginHost.apiUrl+'api/common/pick-list?apiName=city',
+      method: 'GET',
+      success: function(res) {
+        if(res.data.code == 'success'){
+          let dataList = res.data.data
+          let codeToMatch = that.data.CityValue;
+          let matchedItem = dataList.find(item => item.optionCode === codeToMatch);
+          that.setData({
+            Citylabel:matchedItem ? matchedItem.optionLabel :null
+          })
+        }
+      },
+      fail: function(err) {
+        console.error('请求失败', err);
+      }
+    });
+
+    //区县
+    wx.request({
+      url: app.loginHost.apiUrl+'api/common/pick-list?apiName=district',
+      method: 'GET',
+      success: function(res) {
+        if(res.data.code == 'success'){
+          let dataList = res.data.data
+          let codeToMatch = that.data.countyValue;
+          let matchedItem = dataList.find(item => item.optionCode === codeToMatch);
+          that.setData({
+            countylabel:matchedItem ? matchedItem.optionLabel : null
+          })
+        }
+      },
+      fail: function(err) {
+        console.error('请求失败', err);
+      }
+    });
     },
 
 
@@ -178,33 +254,4 @@ Page({
     onStepChange(e) {
       this.setData({ stepIndex: e.detail.current });
     },
-    // handleSuccess(e) {
-    //   const { files } = e.detail;
-    //   const { originFiles, maxFiles } = this.data;
-    //   console.log(originFiles.length);
-    //   // console.log(files.length);
-    //   if (originFiles.length > 2) {
-    //     wx.showToast({
-    //       title: '最多只能上传3张图片',
-    //       icon: 'none',
-    //       duration: 2000
-    //     });
-    //     return; // 不执行文件更新操作
-    //   }
-    //   this.setData({
-    //     originFiles: files,
-    //   });
-    // },
-    
-    // handleRemove(e) {
-    //   const { index } = e.detail;
-    //   const { originFiles } = this.data;
-    //   originFiles.splice(index, 1);
-    //   this.setData({
-    //     originFiles,
-    //   });
-    // },
-    // handleClick(e) {
-    //   console.log(e.detail.file);
-    // }
 })

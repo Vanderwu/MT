@@ -1,4 +1,5 @@
 const app = getApp()
+import { http } from "../../../utils/http"
 Page({
 
     /**
@@ -13,11 +14,14 @@ Page({
       s1_icon : '',
       s2_icon : '',
       s3_icon : '',
-      checkboxHeight:168,
+      checkboxHeight:100,
       checkboxValue: true,
+      isDelivery:"display: none;",
+      isInstall:"display: none;",
       display1 :'',
       display2 :'',
       display3 :'',
+      phoneNumber:'',
       dataList:{}
     },
 
@@ -27,7 +31,7 @@ Page({
     onLoad(options) {
       let po = options.po;
       if(po){
-        wx.request({
+        http({
           url: app.loginHost.apiUrl+'api/order/list',
           data:{
             "deliveryDate": "",
@@ -42,45 +46,62 @@ Page({
           success: (res) => {
             if(res.data.data.length > 0){
               let dataSource = res.data.data[0];
-              let isTrue = true//dataSource.if_coninsall__c
-              if(isTrue){
+              let estimatedDeliveryDate = dataSource.estimatedDeliveryDate //配送时间
+              let estimatedInstallDate = dataSource.estimatedInstallDate //安装时间
+              if(estimatedDeliveryDate != null){
                 this.setData({
-                  checkboxValue:true,
-                  checkboxHeight:168
-                })
-              }else{
-                this.setData({
-                  checkboxValue:false,
-                  checkboxHeight:128,
-                  showViews:"display: none;"
+                  isDelivery:"display: block;",
+                  checkboxHeight:138
                 })
               }
-              if(dataSource.status__c == '0'){
+              if(estimatedInstallDate != null){
+                this.setData({
+                  isInstall:"display: block;",
+                  checkboxHeight:158
+                })
+              }
+              // let isTrue = dataSource.ifConinsall__C
+              // if(isTrue){
+              //   this.setData({
+              //     checkboxValue:true,
+              //     checkboxHeight:168
+              //   })
+              // }else{
+              //   this.setData({
+              //     checkboxValue:false,
+              //     checkboxHeight:128,
+              //     showViews:"display: none;"
+              //   })
+              // }
+              if(dataSource.statusForClient__C == '1'){
                 this.setData({
                   s1_icon : "../../../assets/step_1.png",
                   s2_icon : "../../../assets/step2.png",
                   s3_icon : "../../../assets/step3.png" ,
                   display3:" display: none;",
-                  display2:" display: none;"
+                  display2:" display: none;",
+                  stepIndex:0
 
                 })
-              }else if(dataSource.status__c == '1'){
+              }else if(dataSource.statusForClient__C == '2'){
                 this.setData({
                   s1_icon : "../../../assets/step1.png",
                   s2_icon : "../../../assets/step_2.png",
                   s3_icon : "../../../assets/step3.png",
                   display3:" display: none;",
+                  stepIndex:1
                 })  
               }else{
                 this.setData({
                   s1_icon : "../../../assets/step1.png",
                   s2_icon : "../../../assets/step2.png",
-                  s3_icon : "../../../assets/step_3.png"  
+                  s3_icon : "../../../assets/step_3.png",  
+                  stepIndex:2
                 })
               }
               this.setData({
                 dataList:dataSource,
-                stepIndex:dataSource.status__c,
+                // stepIndex:dataSource.statusForClient__C,
                 step1_icon:this.data.s1_icon,
                 step2_icon:this.data.s2_icon,
                 step3_icon:this.data.s3_icon
@@ -174,7 +195,7 @@ Page({
     },
     makePhoneCall: function() {
       wx.makePhoneCall({
-        phoneNumber: '400-0000-000', // 替换成要拨打的手机号
+        phoneNumber: this.data.dataList.dealerPhone__C//'400-0000-000', // 替换成要拨打的手机号
       })
     },
     handleTap(){

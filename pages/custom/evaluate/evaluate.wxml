@@ -1,16 +1,20 @@
+<t-popup visible="{{visible}}" bind:visible-change="onVisibleChange" placement="{{cur.value || 'center'}}">
+  <text>q</text>
+  <image src="../../../assets/1_1005548255_171_85_3_830067526_1364f1e207ee15af8239ac532e27dccb.png" mode="" />
+</t-popup>
 <view class="container">
   <view class="tab_box">
     <t-tabs value="{{tabIndex}}" bind:change="onTabsChange" bind:click="onTabsClick" t-class="custom-tabs">
 
       <t-tab-panel label="待评价" value="0">
-        <view wx:for="{{searchListObj['toBegin']}}" wx:for-index="index" wx:for-item="item" data-item="{{item}}" wx:key="index" class="list" bindtap="onClickListItem">
+        <view wx:for="{{searchListObj['toBegin']}}" wx:for-index="index" wx:for-item="item" data-item="{{item}}" wx:key="index" class="list" bindtap="handlePopup">
           <view class="list_title">
             <view class="list_title_left">
               <image class="list_title_left_icon" src="../../../assets/Comments.png" mode="" />
             </view>
             <view class="list_title_right">
               <view class="list_title_right_number">评价编号:{{item["number"]}}</view>
-              <view class="list_title_right_dealer">评价对象:{{item["dealer"]}}</view>
+              <!-- <view class="list_title_right_dealer">评价对象:{{item["dealer"]}}</view> -->
               <view class="list_title_right_type">
                 <view class="type_1">问题状态：</view>
                 <view class="display_1">
@@ -23,7 +27,7 @@
       </t-tab-panel>
 
       <t-tab-panel label="已完成" value="2">
-        <view wx:for="{{searchListObj['done']}}" wx:for-index="index" wx:for-item="item" wx:key="index" class="list">
+        <view wx:for="{{searchListObj['done']}}" wx:for-index="index" wx:for-item="item" wx:key="index" class="list" bindtap="handlePopup">
           <view class="list_title">
             <view class="list_title_left">
               <!-- <view class="list_title_left_icon" style="background-image: url('../../../assets/commodity_img.png');"></view> -->
@@ -31,7 +35,7 @@
             </view>
             <view class="list_title_right">
               <view class="list_title_right_number">评价编号:{{item["number"]}}</view>
-              <view class="list_title_right_dealer">评价对象:{{item["dealer"]}}</view>
+              <!-- <view class="list_title_right_dealer">评价对象:{{item["dealer"]}}</view> -->
               <view class="list_title_right_type">
                 <view class="type_3">问题状态：</view>
                 <view class="display_3">

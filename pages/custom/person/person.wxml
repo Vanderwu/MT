@@ -3,12 +3,12 @@
   <view class="header">
     <image class="newHeader" src="{{mask_group}}" mode="" />
     <view class="con_header">
-      <view class="i_leff_header">
-        <image src="/assets/logo.jpg" mode="" />
+      <view class="i_leff_header" bindtap="getUserProfile">
+        <image src="{{avatarUrl}}" mode="" />
       </view>
       <view class="t_radius_header">
         <view class="t_title_header" bindtap="clickLogin">{{nickName}}</view>
-        <view class="d_text_header">登录后可以体验更多服务></view>
+        <view class="d_text_header" style="{{isTrue}}">登录后可以体验更多服务></view>
       </view>
     </view>
   </view>
@@ -36,5 +36,6 @@
         <image src="/assets/icon_privacy.png" mode="" />
       </view>
     </view>
+    <button bindtap="getUserProfile">获取头像</button>
   </view>
 </view>

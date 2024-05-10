@@ -1,2 +1,3 @@
 <!--pages/custom/evaluate_details/evaluate_details.wxml-->
-<web-view src="{{url}}"></web-view>
+<!-- <web-view src="{{url}}"></web-view> -->
+

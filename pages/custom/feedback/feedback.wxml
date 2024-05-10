@@ -19,12 +19,19 @@
       <t-picker-item options="{{cityList}}" />
     </t-picker>
     <!-- 县 -->
-    <t-cell class="required" style="{{inputCountyBorderStyle}}" title="区县" arrow hover note="{{countyText}}" bind:click="onCountyPicker" />
-    <t-picker visible="{{countyVisible}}" value="{{countyValue}}" data-key="county" title="选择区县" cancelBtn="取消" confirmBtn="确认" bindchange="onPickerChange3" bindcancel="onPickerCancel3">
-      <t-picker-item options="{{countyList}}" />
+
+    <t-cell class="required" style="{{inputCountyBorderStyle}}" title="区县" arrow hover note="{{districtText}}" bind:click="onDistrictPicker" />
+    <t-picker visible="{{districtVisible}}" value="{{districtValue}}" data-key="county" title="选择区县"  cancelBtn="取消" confirmBtn="确认" bindchange="onPickerChange3"  bindcancel="onPickerCancel3">
+      <t-picker-item options="{{districtList}}" />
     </t-picker>
 
     <t-input style="{{inputAddressBorderStyle}}" value="{{inputAddress}}" class="required" bindchange="inputAddress" label="详细地址" placeholder="请输入详情地址"></t-input>
+    <!-- <view class="con_billcode">
+      <t-cell class="required" title="选择经销商" arrow hover note="{{historyText}}" bind:click="onHistoryPicker" />
+      <t-picker visible="{{historyVisible}}" value="{{historyValue}}" data-key="province" title="选择经销商" cancelBtn="取消" confirmBtn="确认" bindchange="onHistoryChange" bindcancel="onHistoryCancel">
+        <t-picker-item options="{{historyList}}" />
+      </t-picker>
+    </view> -->
     <view class="con_category">
       <view class="category">问题类别</view>
       <t-radio-group class="radio" defaultValue="{{defaultValue}}" disabled="{{false}}" bindchange="radioChange">
@@ -42,10 +49,6 @@
       <t-picker visible="{{historyVisible}}" value="{{historyValue}}" data-key="province" title="选择历史订单" cancelBtn="取消" confirmBtn="确认" bindchange="onHistoryChange" bindcancel="onHistoryCancel">
         <t-picker-item options="{{historyList}}" />
       </t-picker>
-      <!-- <text class="billcode">选择订单</text>
-      <view class="example-search">
-        <t-search model:value="{{value}}" placeholder="搜索我的订单" />
-      </view> -->
     </view>
     <view class="con_update">
       <text class="up_name">上传图片</text>

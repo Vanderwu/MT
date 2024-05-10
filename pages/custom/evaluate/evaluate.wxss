@@ -181,3 +181,38 @@ page {
   padding-left: 48px;
   box-sizing: border-box;
 }
+
+.block {
+  /*background: #fff;*/
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.block--top,
+.block--bottom {
+  width: 100vw;
+  height: 240px;
+}
+
+.block--left,
+.block--right {
+  width: 280px;
+  height: 100vh;
+}
+
+.block--center {
+  width: 240px;
+  height: 240px;
+}
+
+.wrapper + .wrapper {
+  margin-top: 32rpx;
+}
+
+image{
+  width: 220px;
+  height: 220px;
+  margin: auto;
+}

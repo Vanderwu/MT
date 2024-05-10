@@ -3,5 +3,6 @@
     "projectname": "MTKH",
     "setting": {
         "compileHotReLoad": true
-    }
+    },
+    "libVersion": "2.21.4"
 }

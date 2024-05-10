@@ -141,7 +141,9 @@
     "usingComponents": {
         "t-demo": "./components/demo-block/index",
         "t-button": "tdesign-miniprogram/button/button",
-        "t-icon": "tdesign-miniprogram/icon/icon"
+        "t-icon": "tdesign-miniprogram/icon/icon",
+        "t-pull-down-refresh": "tdesign-miniprogram/pull-down-refresh/pull-down-refresh",
+        "t-loading": "tdesign-miniprogram/loading/loading"
     },
     "window": {
         "backgroundTextStyle": "light",
