@@ -43,6 +43,9 @@ Page({
       districtList:[],
       orderNeoId:"",
       ServiceCodeList:[],
+      province : "",
+      city : "",
+      district : "",
       gridConfig: {
         column: 5,
         width: 80,
@@ -69,7 +72,7 @@ Page({
           "transactionDate": "",
           "po": "",
           "accountName": "",
-          "accountPhone": ""
+          "accountPhone": "",
         },
         method: 'POST',
         success: (res) => {
@@ -84,7 +87,7 @@ Page({
                   value: item.id,
                 };
               }) : null;
-              this.setData({
+              that.setData({
                 ServiceCodeList:response,
                 historyList: historyListMap,
                 historyVisible:false,
@@ -92,9 +95,9 @@ Page({
                 historyText:po,
                 inputName:targetItem.accountName__C ? targetItem.accountName__C : null,//客户名称
                 inputPhone:targetItem.contactTel ? targetItem.contactTel :null,//客户电话
-                provinceValue:targetItem.province__c ? province__c : null, //省份
-                cityValue: targetItem.city__c ? city__c :null, //城市
-                districtValue: targetItem.districtAndCounty__c ? districtAndCounty__c :null  //区县
+                // provinceValue:targetItem.province__c ? province__c : null, //省份
+                // cityValue: targetItem.city__c ? city__c :null, //城市
+                // districtValue: targetItem.districtAndCounty__c ? districtAndCounty__c :null  //区县
               });
             }else{
               let historyListMap = response.map(item => {
@@ -103,7 +106,7 @@ Page({
                   value: item.id,
                 };
               });
-              this.setData({
+              that.setData({
                 historyList: historyListMap,
                 ServiceCodeList:response,
               })
@@ -126,54 +129,58 @@ Page({
         },
       });      
 
-      ////省份
-      wx.request({
-        url: app.loginHost.apiUrl+'api/common/pick-list?apiName=province',
-        method: 'GET',
-        success: function(res) {
-          if(res.data.code == 'success'){
-            let dataList = res.data.data
-            that.setData({
-              provinceList: dataList.map(val => {return {label: val["optionLabel"], value: val["optionCode"]}})
-            })
-          }
-        },
-        fail: function(err) {
-          console.error('请求失败', err);
+      wx.getLocation({
+        type: 'gcj02',
+        success: (res) => {
+          const { latitude, longitude } = res;
+          // 调用逆地理编码接口，将经纬度转换为地点信息
+          wx.request({
+            url: 'https://apis.map.qq.com/ws/geocoder/v1/',
+            data: {
+              location: `${latitude},${longitude}`,
+              key: app.globalData.mapKey, // 替换为您自己的腾讯地图API密钥
+              get_poi: 1 // 请求返回附近的 POI 信息
+            },
+            success(resp) {
+              console.info("resp",resp)
+              let address = resp?.data?.result?.address || "";
+              if(resp.data && resp.data.result && resp.data.result.pois && resp.data.result.pois.length > 0)
+              {
+                address = resp.data.result.pois[0]["address"];
+              }
+              let district = resp?.data?.result?.address_component?.city + resp?.data?.result?.address_component?.district;
+              that.setData({
+                location: {
+                  latitude: latitude,
+                  longitude: longitude,
+                  address: address,
+                  district: district || "",
+                  markerLongitude: longitude,
+                  markerLatitude: latitude,
+                },
+                "marker.latitude": latitude,
+                "marker.longitude": longitude,
+                "marker.title": address,
+                "inputAddress":resp?.data?.result?.address_component?.street_number,
+                province:resp?.data?.result?.address_component?.province,
+                city: resp?.data?.result?.address_component?.city,
+                district: resp?.data?.result?.address_component?.district,
+                inputAddress:resp?.data?.result?.address_component?.street_number
+              });
+            },
+            fail(err) {
+              Toast({
+                context: this,
+                selector: '#t-toast',
+                message: err?.errMsg || "地址解析错误!",
+              });
+              console.error('逆地理编码失败', err);
+            }
+          });
+          that.fetchProvince()
         }
-      });
-      ///城市
-      wx.request({
-        url: app.loginHost.apiUrl+'api/common/pick-list?apiName=city',
-        method: 'GET',
-        success: function(res) {
-          if(res.data.code == 'success'){
-            let dataList = res.data.data
-            that.setData({
-              cityList: dataList.map(val => {return {label: val["optionLabel"], value: val["optionCode"]}})
-            })
-          }
-        },
-        fail: function(err) {
-          console.error('请求失败', err);
-        }
-      });
-      ////区县
-      wx.request({
-        url: app.loginHost.apiUrl+'api/common/pick-list?apiName=district',
-        method: 'GET',
-        success: function(res) {
-          if(res.data.code == 'success'){
-            let dataList = res.data.data
-            that.setData({
-              districtList: dataList.map(val => {return {label: val["optionLabel"], value: val["optionCode"]}})
-            })
-          }
-        },
-        fail: function(err) {
-          console.error('请求失败', err);
-        }
-      });
+      });  
+      
     },
 
     /**
@@ -187,6 +194,7 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow() {
+      
     },
 
     /**
@@ -223,6 +231,75 @@ Page({
     onShareAppMessage() {
 
     },
+    fetchProvince:function(){
+      var that = this;
+      ////省份
+      http({
+        url: app.loginHost.apiUrl+'api/common/pick-list?apiName=province',
+        method: 'GET',
+        success: function(res) {
+          if(res.data.code == 'success'){
+            let dataList = res.data.data
+            that.setData({
+              provinceList: dataList.map(val => {return {label: val["optionLabel"], value: val["optionCode"]}}),
+            })
+          }
+        },
+        fail: function(err) {
+          console.error('请求失败', err);
+        }
+      });
+      ///城市
+      http({
+        url: app.loginHost.apiUrl+'api/common/pick-list?apiName=city',
+        method: 'GET',
+        success: function(res) {
+          if(res.data.code == 'success'){
+            let dataList = res.data.data
+            that.setData({
+              cityList: dataList.map(val => {return {label: val["optionLabel"], value: val["optionCode"]}}),
+            })
+          }
+        },
+        fail: function(err) {
+          console.error('请求失败', err);
+        }
+      });
+      ////区县
+      http({
+        url: app.loginHost.apiUrl+'api/common/pick-list?apiName=district',
+        method: 'GET',
+        success: function(res) {
+          if(res.data.code == 'success'){
+            let dataList = res.data.data
+            that.setData({
+              districtList: dataList.map(val => {return {label: val["optionLabel"], value: val["optionCode"]}})
+            })
+          }
+        },
+        fail: function(err) {
+          console.error('请求失败', err);
+        }
+      });
+      setTimeout(function() {
+        that.matchValueByProvince();
+      }, 1000);
+    },
+    matchValueByProvince(){
+      var that = this;
+      const provinceItem = that.data.provinceList.find(item => item.label === that?.data?.province);//省
+      const cityItem = that.data.cityList.find(item => item.label === that?.data?.city);//市
+      const districtItem = that.data.districtList.find(item => item.label === that?.data?.district);//区
+      that.setData({
+        provinceValue:provinceItem.value?provinceItem.value:"",
+        provinceText:provinceItem.label?provinceItem.label:"",
+        cityValue:cityItem.value?cityItem.value:"",
+        cityText:cityItem.label?cityItem.label:"",
+        districtValue:districtItem.value?districtItem.value:"",
+        districtText:districtItem.label?districtItem.label:"",
+      })
+    },
+
     inputName(e){
       this.setData({
         inputName:e.detail.value,

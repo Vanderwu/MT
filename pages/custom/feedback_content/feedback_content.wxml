@@ -3,7 +3,7 @@
   <view class="prompt">
     <!-- <view>请在详细填写问题描述、并尽可能上传故障照片和视频,方便工程师远程诊断并快速解决故障。</view> -->
     <view class="header_step">
-      <t-steps current="{{stepIndex}}" bind:change="onStepChange">
+      <t-steps current="{{stepIndex}}">
         <t-step-item title="待处理" icon="{{step1_icon}}">
         </t-step-item>
         <t-step-item title="处理中" icon="{{step2_icon}}">

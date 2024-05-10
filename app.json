@@ -171,5 +171,10 @@
                 "selectedIconPath": "./assets/my_xt.png"
             }
         ]
-    }
+    },
+    "permission": {
+      "scope.userLocation": {
+          "desc": "你的位置信息将用于地图功能的展示"
+      }
+  }
 }

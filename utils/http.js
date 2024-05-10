@@ -9,7 +9,6 @@ export const http = async (options = {}) => {
         "Authorization": token
       },
       success: (res) => {
-        console.log("token-res",res)
         // TODO： 校验Token过期
         if(res?.statusCode == 200){
           if(res.data?.code == "invalid_token"){

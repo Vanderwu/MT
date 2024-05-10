@@ -11,7 +11,7 @@
       </view>
     </view>
     <view class="header_step">
-      <t-steps current="{{stepIndex}}" bind:change="onStepChange">
+      <t-steps current="{{stepIndex}}">
         <t-step-item title="待交付" icon="{{step1_icon}}">
         </t-step-item>
         <t-step-item title="交付中" icon="{{step2_icon}}">

@@ -48,7 +48,6 @@ Page({
           method: 'GET',
           success: (res) => {
             let dataSource = res.data.data;
-            console.log("2111",dataSource.orderNeoId)
             if(dataSource.clientCaseStatusC == '1'){
               this.setData({
                 step1_icon : "../../../assets/step_1.png",
@@ -77,28 +76,16 @@ Page({
                   url: `https://sh.mengtian.com.cn:9595/md/api/common/file/direct-download?fileId=${fileId}`
               };
           });
-          http({
-            url: app.loginHost.apiUrl+'api/order?neoid='+dataSource.orderNeoId,
-            method: 'GET',
-            success: function(res) {
-              if(res.data.code == 'success'){
-                that.setData({
-                  caseNo:res.data.data.po
-                });
-              }
-            },
-            fail: function(err) {
-              console.error('请求失败', err);
-            }
-          });
             this.setData({
               dataList:dataSource,
+              caseNo:dataSource.caseNo,
               defaultValue:dataSource.questionType+"",
               provinceValue:dataSource.province,
               CityValue:dataSource.city,
               countyValue:dataSource.district,
               originFiles:originFiles
             });
+            that.fetchProvince()
           },
           fail: (err) => {
             console.error('请求后端接口失败', err);
@@ -111,68 +98,11 @@ Page({
         });
       }else{
         wx.showToast({
-          title: '外星人劫持了，您的订单',
+          title: '加载内容失败',
           icon: 'none',
           duration: 2000
         });
       }
-      ////省份
-      wx.request({
-        url: app.loginHost.apiUrl+'api/common/pick-list?apiName=province',
-        method: 'GET',
-        success: function(res) {
-          if(res.data.code == 'success'){
-            let dataList = res.data.data
-            let codeToMatch = that.data.provinceValue;
-            let matchedItem = dataList.find(item => item.optionCode === codeToMatch);
-
-            that.setData({
-              provincelabel:matchedItem ? matchedItem.optionLabel :null
-            })
-          }
-        },
-        fail: function(err) {
-          console.error('请求失败', err);
-        }
-      });
-
-     //市区
-     wx.request({
-      url: app.loginHost.apiUrl+'api/common/pick-list?apiName=city',
-      method: 'GET',
-      success: function(res) {
-        if(res.data.code == 'success'){
-          let dataList = res.data.data
-          let codeToMatch = that.data.CityValue;
-          let matchedItem = dataList.find(item => item.optionCode === codeToMatch);
-          that.setData({
-            Citylabel:matchedItem ? matchedItem.optionLabel :null
-          })
-        }
-      },
-      fail: function(err) {
-        console.error('请求失败', err);
-      }
-    });
-
-    //区县
-    wx.request({
-      url: app.loginHost.apiUrl+'api/common/pick-list?apiName=district',
-      method: 'GET',
-      success: function(res) {
-        if(res.data.code == 'success'){
-          let dataList = res.data.data
-          let codeToMatch = that.data.countyValue;
-          let matchedItem = dataList.find(item => item.optionCode === codeToMatch);
-          that.setData({
-            countylabel:matchedItem ? matchedItem.optionLabel : null
-          })
-        }
-      },
-      fail: function(err) {
-        console.error('请求失败', err);
-      }
-    });
     },
 
 
@@ -223,6 +153,65 @@ Page({
      */
     onShareAppMessage() {
 
+    },
+    fetchProvince:function(){
+      var that = this;
+      ////省份
+      http({
+        url: app.loginHost.apiUrl+'api/common/pick-list?apiName=province',
+        method: 'GET',
+        success: function(res) {
+          if(res.data.code == 'success'){
+            let dataList = res.data.data
+            let codeToMatch = that.data.provinceValue;
+            let matchedItem = dataList.find(item => item.optionCode === codeToMatch);
+            that.setData({
+              provincelabel:matchedItem ? matchedItem.optionLabel :null
+            })
+          }
+        },
+        fail: function(err) {
+          console.error('请求失败', err);
+        }
+      });
+
+     //市区
+     http({
+      url: app.loginHost.apiUrl+'api/common/pick-list?apiName=city',
+      method: 'GET',
+      success: function(res) {
+        if(res.data.code == 'success'){
+          let dataList = res.data.data
+          let codeToMatch = that.data.CityValue;
+          let matchedItem = dataList.find(item => item.optionCode === codeToMatch);
+          that.setData({
+            Citylabel:matchedItem ? matchedItem.optionLabel :null
+          })
+        }
+      },
+      fail: function(err) {
+        console.error('请求失败', err);
+      }
+    });
+
+    //区县
+    http({
+      url: app.loginHost.apiUrl+'api/common/pick-list?apiName=district',
+      method: 'GET',
+      success: function(res) {
+        if(res.data.code == 'success'){
+          let dataList = res.data.data
+          let codeToMatch = that.data.countyValue;
+          let matchedItem = dataList.find(item => item.optionCode === codeToMatch);
+          that.setData({
+            countylabel:matchedItem ? matchedItem.optionLabel : null
+          })
+        }
+      },
+      fail: function(err) {
+        console.error('请求失败', err);
+      }
+    });
     },
     handleTap(){
       wx.switchTab({

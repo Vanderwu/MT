@@ -18,5 +18,15 @@ App({
     //接口请求地址
     loginHost:{
       apiUrl: 'https://sh.mengtian.com.cn:9595/md/'
+    },
+    "globalData": {
+      "chart": null,
+      "mapKey": "2EGBZ-WWYCM-2JV62-6Y3CW-FSHA5-PCBL7",
+      "baseInfo":{
+        token: "",
+        phone: "",
+        name: ""
+      },
+      "dateRange": []
     }
 });

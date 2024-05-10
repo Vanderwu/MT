@@ -4,7 +4,7 @@
     <image class="main_icon" src="/assets/main_icon.png" mode="aspectFill"/>
   </view>
   <view class="emp_but">
-    <button class="login_btn" open-type="{{checkboxValue ? 'getPhoneNumber' : ''}}" style="background-color:{{btnColor}}" bindgetphonenumber="getPhoneNumber" bindtap="getCheckboxValue">微信授权</button>
+    <button class="login_btn" open-type="{{checkboxValue ? 'getPhoneNumber' : ''}}" style="background-color:{{btnColor}}" bindgetphonenumber="getPhoneNumber" bindtap="getUserProfile">微信授权</button>
   </view>
   <view class="checkbox_view">
     <t-checkbox label="" bindtap="checkboxBtn" icon="rectangle" checked="{{checkboxValue}}"/>

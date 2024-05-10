@@ -198,4 +198,42 @@ Page({
         PhoneNumber:PhoneNumber
       });
     },
+   //获取头像+名称方法
+   getUserProfile(e) {
+    var that = this;
+    if (this.data.checkboxValue) {
+      const storedUserInfo = wx.getStorageSync('userInfo');
+      if(storedUserInfo){
+        console.log("本地已存在用户信息，不需要再次获取。");
+        this.setData({
+          userInfo: storedUserInfo,
+          hasUserInfo: true,
+          isTrue: true,
+          // PhoneNumber:"getPhoneNumber"
+        });
+      } else{
+        wx.getUserProfile({
+          desc: '用于完善会员资料', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
+          success: (res) => {
+            // console.log("res",res)
+            this.setData({
+              userInfo: res.userInfo,
+              hasUserInfo: true,
+              isTrue:true,
+              // PhoneNumber:"getPhoneNumber"
+            });
+            wx.setStorageSync('userInfo', res.userInfo);
+          }
+        })
+      } 
+    } else {
+      // 在需要弹出提示框的地方调用该方法
+      wx.showToast({
+        title: '请先勾选同意条例',
+        icon: 'none', // 提示框图标，可选值：'success', 'loading', 'none'
+        duration: 2000 // 提示框持续时间，单位为毫秒
+      });
+      // console.log('请先勾选同意条例');
+    }
+  }
 });

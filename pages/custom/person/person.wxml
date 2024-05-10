@@ -36,6 +36,5 @@
         <image src="/assets/icon_privacy.png" mode="" />
       </view>
     </view>
-    <button bindtap="getUserProfile">获取头像</button>
   </view>
 </view>
