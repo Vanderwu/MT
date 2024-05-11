@@ -20,6 +20,7 @@
     <t-input class="required" label="省份" placeholder="省市" disabled value="{{provincelabel}}"></t-input>
     <t-input class="required" label="城市" placeholder="城市" disabled value="{{Citylabel}}"></t-input>
     <t-input class="required" label="区县" placeholder="区县" disabled value="{{countylabel}}"></t-input>
+    <t-input class="required" label="专卖店" placeholder="专卖店" disabled value="{{dataList.storeName}}"></t-input>
     <t-input class="required" label="详细地址" placeholder="详情地址" disabled value="{{dataList.address}}"></t-input>
     <view class="con_category">
       <view class="category">问题类别</view>

@@ -24,10 +24,13 @@ Page({
       phoneError: false,
       provinceText: '',
       historyText:'',
+      storeText:'',
       provinceVisible: false,
       historyVisible: false,
+      storeVisible: false,
       provinceValue: [],
       historyValue: [],
+      storeValue:[],
       cityText: '',
       cityVisible: false,
       cityValue: [],
@@ -46,6 +49,8 @@ Page({
       province : "",
       city : "",
       district : "",
+      store:"",
+      storeList:[],
       gridConfig: {
         column: 5,
         width: 80,
@@ -142,7 +147,6 @@ Page({
               get_poi: 1 // 请求返回附近的 POI 信息
             },
             success(resp) {
-              console.info("resp",resp)
               let address = resp?.data?.result?.address || "";
               if(resp.data && resp.data.result && resp.data.result.pois && resp.data.result.pois.length > 0)
               {
@@ -290,6 +294,30 @@ Page({
       const provinceItem = that.data.provinceList.find(item => item.label === that?.data?.province);//省
       const cityItem = that.data.cityList.find(item => item.label === that?.data?.city);//市
       const districtItem = that.data.districtList.find(item => item.label === that?.data?.district);//区
+      //根据定位加载专卖店信息
+      http({
+        url: app.loginHost.apiUrl+`api/common/store?province=${provinceItem.label}&city=${cityItem.label}`,
+        // url: app.loginHost.apiUrl+`api/common/store?province=广东省&city=惠州市`,
+        method: 'GET',
+        success: function(res) {
+          if(res?.data?.code == 'success'){
+            let storeItem = res?.data?.data
+            that.setData({
+              storeList:storeItem.map(val => {return {
+                label: val["name"],
+                value: val["neoId"],
+                id:val["id"],
+                storeNo:val["storeNo"],
+                neoId:val["neoId"],
+                phone:val["phone"]
+              }})
+            })
+          }
+        },
+        fail: function(err) {
+          console.error('请求失败', err);
+        }
+      });
       that.setData({
         provinceValue:provinceItem.value?provinceItem.value:"",
         provinceText:provinceItem.label?provinceItem.label:"",
@@ -297,6 +325,9 @@ Page({
         cityText:cityItem.label?cityItem.label:"",
         districtValue:districtItem.value?districtItem.value:"",
         districtText:districtItem.label?districtItem.label:"",
+        inputProvince:provinceItem.value?provinceItem.value:"",
+        inputCity:cityItem.value?cityItem.value:"",
+        inputCounty:districtItem.value?districtItem.value:"",
       })
     },
 
@@ -452,8 +483,8 @@ Page({
           "orderType":targetItem == null ? "" : targetItem.orderType,
           "distributorNeoId":targetItem == null ? "" : targetItem.distributorNeoId,
           "distributorName": targetItem == null ? "" : targetItem.distributorName,
-          // "storeNeoId":targetItem.storeNeoId ? targetItem.storeNeoId : null,
-          "storeName": targetItem == null ? "" : targetItem.storeName,
+          "storeNeoId":this.data.storeValue ? this.data.storeValue : null,
+          "storeName": this.data.storeText ? this.data.storeText : null,
           "address":this.data.inputAddress
         },
         method: 'POST',
@@ -567,12 +598,28 @@ Page({
         // districtValue: targetItem.districtAndCounty__c ? districtAndCounty__c :null  //区县
       });
     },
+    onStoreChange(e) {
+      let value = e.detail.value;
+      let label = e.detail.label;
+      this.setData({
+        orderNeoId:"",
+        storeVisible: false,
+        storeValue: value[0],
+        storeText: label[0]
+      });
+    },
+
     onProvincePicker() {
       this.setData({ provinceVisible: true });
     },
     onHistoryPicker() {
       this.setData({ historyVisible: true });
     },
+
+    onStorePicker() {
+      this.setData({ storeVisible: true });
+    },
+
     onPickerChange2(e) {
       let value = e.detail.value;
       let label = e.detail.label;
