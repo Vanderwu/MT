@@ -20,7 +20,7 @@
     <t-input class="required" label="省份" placeholder="省市" disabled value="{{provincelabel}}"></t-input>
     <t-input class="required" label="城市" placeholder="城市" disabled value="{{Citylabel}}"></t-input>
     <t-input class="required" label="区县" placeholder="区县" disabled value="{{countylabel}}"></t-input>
-    <t-input class="required" label="专卖店" placeholder="专卖店" disabled value="{{dataList.storeName}}"></t-input>
+    <t-input class="required" label="购买门店" placeholder="购买门店" disabled value="{{dataList.purchaseStoreName}}"></t-input>
     <t-input class="required" label="详细地址" placeholder="详情地址" disabled value="{{dataList.address}}"></t-input>
     <view class="con_category">
       <view class="category">问题类别</view>
@@ -37,7 +37,8 @@
     <view class="con_billcode">
       <text class="billcode">订单</text>
       <view class="example-search">
-        <t-search model:value="{{caseNo}}" placeholder="我的订单" disabled />
+      <t-input style="background-color: #e9e5e5 !important;border-radius: 10px;" placeholder="我的订单" value="{{po}}" disabled></t-input>
+        <!-- <t-search model:value="{{caseNo}}" placeholder="我的订单" disabled /> -->
       </view>
     </view>
     <view class="con_update">

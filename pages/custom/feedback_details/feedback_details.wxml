@@ -11,7 +11,6 @@
               </view>
               <view class="list_title_right">
                 <view class="list_title_right_number">问题编号:{{item["caseNo"]}}</view>
-                <!-- <view class="list_title_right_dealer">当前负责人:{{item["distributorName"]}}</view> -->
                 <view class="list_title_right_type">
                   <view class="type_1">问题状态：</view>
                   <view class="display_1">
@@ -19,6 +18,7 @@
                     <!-- <text>{{item["caseStatus"]}}</text> -->
                   </view>
                 </view>
+                <view class="list_title_right_type">问题创建日期:{{item["createdTime"]}}</view>
                 <!-- <view class="list_title_right_delivery">预计配送时间:{{item["delivery_date"]}}</view>
               <view class="list_title_right_install">预计安装时间:{{item["install_date"]}}</view> -->
               </view>
@@ -37,7 +37,6 @@
               </view>
               <view class="list_title_right">
                 <view class="list_title_right_number">问题编号:{{item["caseNo"]}}</view>
-                <!-- <view class="list_title_right_dealer">当前负责人:{{item["distributorName"]}}</view> -->
                 <view class="list_title_right_type">
                   <view class="type_2">问题状态：</view>
                   <view class="display_2">
@@ -45,6 +44,7 @@
                     <!-- <text>{{item["caseStatus"]}}</text> -->
                   </view>
                 </view>
+                <view class="list_title_right_type">问题创建日期:{{item["createdTime"]}}</view>
                 <!-- <view class="list_title_right_delivery">预计配送时间:{{item["delivery_date"]}}</view>
               <view class="list_title_right_install">预计安装时间:{{item["install_date"]}}</view> -->
               </view>
@@ -71,6 +71,7 @@
                     <!-- <text>{{item["caseStatus"]}}</text> -->
                   </view>
                 </view>
+                <view class="list_title_right_type">问题创建日期:{{item["createdTime"]}}</view>
                 <!-- <view class="list_title_right_delivery">预计配送时间:{{item["delivery_date"]}}</view>
               <view class="list_title_right_install">预计安装时间:{{item["install_date"]}}</view> -->
               </view>

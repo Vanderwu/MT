@@ -34,13 +34,7 @@ Page({
         http({
           url: app.loginHost.apiUrl+'api/order/list',
           data:{
-            "deliveryDate": "",
-            "status__c": "",
-            "orderType__c": "",
-            "transactionDate": "",
             "po": po,
-            "accountName": "",
-            "accountPhone": ""
           },
           method: 'POST',
           success: (res) => {

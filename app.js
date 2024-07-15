@@ -21,7 +21,7 @@ App({
     },
     "globalData": {
       "chart": null,
-      "mapKey": "2EGBZ-WWYCM-2JV62-6Y3CW-FSHA5-PCBL7",
+      "mapKey": "6YLBZ-52KRB-TJXUJ-N4LMS-5CO5O-QAB2P",
       "baseInfo":{
         token: "",
         phone: "",

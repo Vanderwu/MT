@@ -52,7 +52,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-    this.searchList();
+    // this.searchList();
     this.tabIndex = 0;
   },
 
@@ -173,58 +173,6 @@ Page({
         });
       },
     });
-    // wx.request({
-    //   url: app.loginHost.apiUrl+'api/order/page',
-    //   data: 
-    //   {
-    //     "deliveryDate": "",
-    //     "status__c": "",
-    //     "orderType__c": "",
-    //     "transactionDate": "",
-    //     "po": "",
-    //     "accountName": "",
-    //     "accountPhone": "",
-    //     "pageNo": 0,
-    //     "pageSize": 6
-    //   },
-    //   method: 'POST',
-    //   success: (res) => {
-    //     let dataSource = res.data.data;
-    //     // console.log(dataSource)
-    //     let index = 0;
-    //     if(dataSource.length > 0){
-    //       setTimeout(() =>{
-    //         let data = {toBegin:[],inProgress:[],done:[]};
-    //         data["toBegin"] = dataSource.filter(val => val["statusForClient__C"] === 1);
-    //         data["inProgress"] = dataSource.filter(val => val["statusForClient__C"] === 2);
-    //         data["done"] = dataSource.filter(val => val["statusForClient__C"] === 3);
-    //         if(data["toBegin"].length>0){
-    //           index = 0;
-    //         }
-    //         if(data["inProgress"].length>0){
-    //           index = 1;
-    //         }
-    //         if(data["done"].length>0){
-    //           index = 2;
-    //         }
-    //         // data = this.data.srcListObj;
-    //         this.setData({
-    //           searchListObj: data, 
-    //           // tabIndex: index
-    //         });
-    //         // console.log(this.data.dataList)
-    //       },66)
-    //     }
-    //   },
-    //   fail: (err) => {
-    //     console.error('请求后端接口失败', err);
-    //     wx.showToast({
-    //       title: '请求失败，请稍后重试',
-    //       icon: 'none',
-    //       duration: 2000
-    //     });
-    //   },
-    // });
   },
   
   onClickListItem(event){

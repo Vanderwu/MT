@@ -85,6 +85,11 @@ Page({
     //   })
     // }
   },
+  exit(){
+    wx.navigateTo({
+      url: '/pages/custom/login/login',
+    })
+  },
   clickDevice(){
     wx.navigateTo({
       url: '/pages/custom/mine/mine',

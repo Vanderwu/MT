@@ -36,5 +36,14 @@
         <image src="/assets/icon_privacy.png" mode="" />
       </view>
     </view>
+    <view class="privacy" bindtap="exit">
+      <view class="i_leff_privacy">
+        <image src="/assets/exit.png" mode="" />
+      </view>
+      <view class="t_centre_privacy">退出登录</view>
+      <view class="i_right_privacy">
+        <image src="/assets/icon_privacy.png" mode="" />
+      </view>
+    </view>
   </view>
 </view>

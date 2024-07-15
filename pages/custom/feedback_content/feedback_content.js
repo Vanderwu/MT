@@ -25,6 +25,8 @@ Page({
       dataList:{},
       defaultValue:"0",
       caseNo:"",
+      orderNeoId:"",
+      po:"",
       gridConfig: {
         column: 5,
         width: 80,
@@ -83,8 +85,10 @@ Page({
               provinceValue:dataSource.province,
               CityValue:dataSource.city,
               countyValue:dataSource.district,
-              originFiles:originFiles
+              originFiles:originFiles,
+              orderNeoId:dataSource.orderNeoId
             });
+            that.getOrderitem()
             that.fetchProvince()
           },
           fail: (err) => {
@@ -212,6 +216,27 @@ Page({
         console.error('请求失败', err);
       }
     });
+    },
+    getOrderitem(){
+      var that = this;
+      if(this.data.orderNeoId){
+        http({
+          url: app.loginHost.apiUrl+'api/order?neoid='+this.data.orderNeoId,
+          method: 'GET',
+          success: function(res) {
+            if(res.data.code == 'success'){
+              that.setData({
+                po:res.data.data.po
+              })
+            }
+          },
+          fail: function(err) {
+            console.error('请求失败', err);
+          }
+        });
+      }else{
+        console.log("没有订单号")
+      }
     },
     handleTap(){
       wx.switchTab({

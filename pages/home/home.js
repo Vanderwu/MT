@@ -34,8 +34,9 @@ Page({
     },
     onShareAppMessage() {
         return {
-            title: 'TDesign UI',
+            title: '梦天木作售后服务中心',
             path: '/pages/home/home',
+            imageUrl:"../../../assets/share.jpg"
         };
     },
     getQueryByUrl(url) {

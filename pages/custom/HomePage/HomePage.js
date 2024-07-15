@@ -14,7 +14,7 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad(options) {
-
+      this.getUserProfile();
     },
 
     /**
@@ -63,7 +63,11 @@ Page({
      * 用户点击右上角分享
      */
     onShareAppMessage() {
-
+      return {
+        title: '梦天木作售后服务中心',
+        path: '/pages/custom/login/login',
+        imageUrl:"../../../assets/share.jpg"
+    };
     },
     option_1:function(){
       // 我的订单
@@ -89,4 +93,18 @@ Page({
         url: '/pages/custom/evaluate/evaluate'
       });
     },
+  //获取头像+名称方法
+   getUserProfile(e) {
+    const storedUserInfo = wx.getStorageSync('userInfo');
+    if(storedUserInfo){
+      console.log("本地已存在用户信息，不需要再次获取!");
+    } else{
+      wx.getUserProfile({
+        desc: '获取你的昵称、头像、地区及性别', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
+        success: (res) => {
+          wx.setStorageSync('userInfo', res.userInfo);
+        }
+      })
+    }
+  }
 })
