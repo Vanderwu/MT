@@ -75,7 +75,8 @@ Page({
             let picture = dataSource.picture;
             let originFiles = picture.map(fileId => {
               return {
-                  url: `https://sh.mengtian.com.cn:9595/md/api/common/file/direct-download?fileId=${fileId}`
+                url:app.loginHost.apiUrl+`api/common/file/direct-download?fileId=${fileId}`
+                  // url: `https://sh.mengtian.com.cn:9595/md/api/common/file/direct-download?fileId=${fileId}`
               };
           });
             this.setData({

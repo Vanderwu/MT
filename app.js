@@ -17,7 +17,8 @@ App({
     },
     //接口请求地址
     loginHost:{
-      apiUrl: 'https://sh.mengtian.com.cn:9595/md/'
+      // apiUrl: 'https://sh.mengtian.com.cn:9595/md/'
+      apiUrl: 'https://www.mengtianwood.cn/md/'
     },
     "globalData": {
       "chart": null,
