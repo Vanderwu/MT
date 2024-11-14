@@ -39,9 +39,9 @@
     <view class="con_category">
       <view class="category">问题类别</view>
       <t-radio-group class="radio" defaultValue="{{defaultValue}}" disabled="{{false}}" bindchange="radioChange">
-        <t-radio class="radio_" value="0" label="售前咨询" />
-        <t-radio class="radio_" value="1" label="售后报修" />
+        <t-radio class="radio_" value="1" label="售后保修" />
         <t-radio class="radio_" value="2" label="投诉建议" />
+        <t-radio class="radio_" value="3" label="售前咨询" />
       </t-radio-group>
     </view>
     <view class="describe">问题描述</view>

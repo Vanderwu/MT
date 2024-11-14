@@ -19,7 +19,7 @@ Page({
       uploadedImagesCount:0,
       pictureUrl:[],
       visible: false,
-      defaultValue:'0',
+      defaultValue:'1',
       selectedValue:1,
       phoneError: false,
       provinceText: '',
