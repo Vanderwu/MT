@@ -7,57 +7,36 @@ page {
 	height: 100%;
 	display: flex;
 	flex-direction: column;
-	background-color: #ffffff;
+	background-color: #e5e5e5;
   overflow-x: hidden;
   overflow-y: hidden;
 }
 
-.t-tab-panel{
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  flex-direction: column;
-  height: calc(100vh - 45px) !important;
-  overflow-y: auto;
-  background-color: #E5E5E5;
-}
-
-
-.t-tabs__track{
-  width: 80px !important;
-  left: 0px !important;
-  background-color:#0052D9 !important;
-}
-
-.list{
-  height: 110px;
+.tabContainer{
   width: 95%;
-  display: flex;
-  flex-direction: column;
-  background-color: #ffffff;
-  margin-top: 8px;
-  border-radius: 11px;
+  height: 100vh;
+  margin: auto;
 }
 
-.list_title{
+.tab{
   width: 100%;
-  height: 110px;
+  height: 18vh;
+  border-radius: 5px;
+  margin-top: 1vh;
   display: flex;
   flex-direction: row;
+  background-color: #ffffff;
 }
 
-.list_title_left{
+.tab_left{
   width: 78px;
-  /* width: calc(100% - 290px); */
-  height: 110px;
+  height: 18vh;
   display: flex;
-  /* justify-content: center; */
   align-items: center;
-  /* border: 1px solid red; */
 }
 
 
-.list_title_left_icon{
+.tab_left_icon{
   width: 64px;
   height: 64px;
   margin-left: 14px;
@@ -65,154 +44,25 @@ page {
   opacity: 1;
 }
 
-.list_title_right{
+.tab_right{
   width: calc(100% - 25px);
-  height: 110px;
+  height: 18vh;
   margin-left:25px;
 }
 
-.list_title_right_number{
-  margin-top: 17px;
-  font-family: AlibabaPuHuiTi;
-  font-size: 15px;
-  font-weight: normal;
-  line-height: 25px;
-  letter-spacing: 0px;
-  color: #000000;
+.serviceCaseNumber{
+  margin-top: 2vh;
 }
 
-.list_title_right_dealer{
-  font-family: Alibaba PuHuiTi 2.0;
-  font-weight: 500;
-  font-size: 14px;
-  font-variation-settings: "opsz" auto;
-  color: #909090;
+.neoNumber{
+  margin-top: 0.5vh;
 }
 
-.list_title_right_delivery,.list_title_right_install{
-  font-family: Alibaba PuHuiTi 2.0;
-  font-size: 14px;
-  font-weight: 500;
-  letter-spacing: 0px;
-  font-variation-settings: "opsz" auto;
-  font-feature-settings: "kern" on;
-  color: #000000;
-}
-
-.list_title_right_type{
-  /* border: 1px solid red; */
-  width: 100%;
-  height: 25px;
-  line-height: 25px;
-}
-.type_1{
-  width: 80px;
-  height: 25px;
-  line-height: 25px;
-  font-family: Alibaba PuHuiTi 2.0;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 25px;
-  letter-spacing: 0px;
-  font-variation-settings: "opsz" auto;
-  font-feature-settings: "kern" on;
-  color: #000000;
-  /* border: 1px solid red; */
-  float: left;
-}
-.display_1{
-  width: 60px;
-  height: 25px;
-  /* border: 1px solid red; */
-  text-align: center;
-  margin-left: 80px;
-  background: #FF8127;
-  color: #ffffff;
-  font-family: Alibaba PuHuiTi 2.0;
-  font-size: 12px;
-  font-weight: normal;
+.evaluate{
+  width: 70vw;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 
-
-
-.type_3{
-  width: 80px;
-  height: 25px;
-  line-height: 25px;
-  font-family: Alibaba PuHuiTi 2.0;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 25px;
-  letter-spacing: 0px;
-  font-variation-settings: "opsz" auto;
-  font-feature-settings: "kern" on;
-  color: #000000;
-  /* border: 1px solid red; */
-  float: left;
-}
-.display_3{
-  width: 60px;
-  height: 25px;
-  /* border: 1px solid red; */
-  text-align: center;
-  margin-left: 80px;
-  color: #ffffff;
-  font-family: Alibaba PuHuiTi 2.0;
-  font-size: 12px;
-  font-weight: normal;
-  background: #979797;
-}
-
-.list_action_icon{
-  width: 20px;
-  height: 20px;
-}
-
-.list_address{
-  height: 30px;
-  width: 100%;
-  line-height: 30px;
-  font-family: Alibaba PuHuiTi 2.0;
-  font-size: 13px;
-  font-weight: normal;
-  letter-spacing: 0px;
-  color: #000000;
-  padding-left: 48px;
-  box-sizing: border-box;
-}
-
-.block {
-  /*background: #fff;*/
-  color: #333;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.block--top,
-.block--bottom {
-  width: 100vw;
-  height: 240px;
-}
-
-.block--left,
-.block--right {
-  width: 280px;
-  height: 100vh;
-}
-
-.block--center {
-  width: 240px;
-  height: 240px;
-}
-
-.wrapper + .wrapper {
-  margin-top: 32rpx;
-}
-
-image{
-  width: 220px;
-  height: 220px;
-  margin: auto;
-}
